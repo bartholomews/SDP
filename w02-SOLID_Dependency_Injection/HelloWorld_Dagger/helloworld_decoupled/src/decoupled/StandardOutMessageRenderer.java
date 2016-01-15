@@ -1,3 +1,5 @@
+package decoupled;
+
 /**
  * This class is still dependent on the particular implementation HelloWorldMessageProvider:
  * it should refer to an abstract MessageProvider interface rather than a concrete class.
