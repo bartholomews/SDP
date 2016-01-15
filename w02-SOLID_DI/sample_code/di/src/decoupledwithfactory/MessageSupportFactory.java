@@ -14,7 +14,7 @@ public class MessageSupportFactory {
 		props = new Properties();
 
 		try {
-			props.load(new FileInputStream("/Users/keith/Courses/sdp/2016/SDP2016/di/src/decoupledwithfactory/bean.properties"));
+			props.load(new FileInputStream("/Users/bartholomews/Project/SDP/exercises/w02-SOLID_DI/sample_code/di/src/decoupledwithfactory/bean.properties"));
 
 			// get the implementation classes
 			String rendererClass = props.getProperty("renderer.class");
