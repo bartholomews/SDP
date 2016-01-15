@@ -1,3 +1,5 @@
+package decoupled;
+
 /**
  * For this version, the message provider logic and the message renderer logic
  * are separated from the rest of the code (Separation of concerns/modularity in SOLID);

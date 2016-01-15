@@ -1,3 +1,5 @@
+package helloworld;
+
 /**
  * This version externalises the message content and read it in at runtime,
  * from the command line argument: the message can be changed without
