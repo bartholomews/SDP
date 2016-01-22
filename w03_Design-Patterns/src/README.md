@@ -1,12 +1,13 @@
 ## BBK SDP 2016 - Week 3
-Exercises on Design Patterns 
-The Basics
+###Exercises on Design Patterns
+###The Basics
 
-### Short form questions
+#### Short form questions
 
-1. Write down three differences between abstract classes and interfaces in Java 8. Provide examples to illustrate your answer.
+1. Write down three differences between abstract classes and interfaces in Java 8.
+Provide examples to illustrate your answer.
 
-2. Are the following true or false?
+2. Are the following true or false? 
     (a) Every interface must have at least one method.
     (b) An interface can declare instance fields that an implementing class must also declare.
     (c) Although you can’t instantiate an interface, an interface definition can declare constructor methods that require an implementing class to provide constructors with given signatures.
@@ -86,7 +87,7 @@ Write a code example to define a `Writer` object that wraps text at 15 character
 centres the text, sets the text to random casing, and directs the output to System.out. 
 Which design pattern are you using?
 
-### Long form questions
+#### Long form questions
 
 1. The FACTORY METHOD design pattern.
 
