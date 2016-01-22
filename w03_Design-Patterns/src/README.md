@@ -1,17 +1,17 @@
 ## BBK SDP 2016 - Week 3
 ###Exercises on Design Patterns
-###The Basics
+####The Basics
 
 #### Short form questions
 
-1. Write down three differences between abstract classes and interfaces in Java 8.
-Provide examples to illustrate your answer.
+1. Write down three differences between abstract classes and interfaces in Java 8.   
+Provide examples to illustrate your answer.   
 
-2. Are the following true or false? 
-    (a) Every interface must have at least one method.
-    (b) An interface can declare instance fields that an implementing class must also declare.
-    (c) Although you can’t instantiate an interface, an interface definition can declare constructor methods that require an implementing class to provide constructors with given signatures.
-Provide examples to illustrate your answers.
+2. Are the following true or false?   
+    (a) Every interface must have at least one method.  
+    (b) An interface can declare instance fields that an implementing class must also declare.   
+    (c) Although you can’t instantiate an interface, an interface definition can declare constructor methods that require an implementing class to provide constructors with given signatures.   
+    Provide examples to illustrate your answers.   
 
 3. Provide an example of an interface with methods that do not imply responsibility on the part of the implementing class to take action on behalf of the caller or to return a value.
 
@@ -66,7 +66,7 @@ Provide appropriate examples to illustrate your answer.
 6. Why might you decide to lazy-initialise a singleton instance rather than initialise 
 it in its field declaration? Provide examples of both approaches to illustrate your answer.
 
-7. Using the java.util.Observable and java.util.Observer classes/interfaces 
+7. Using the `java.util.Observable` and `java.util.Observer` classes/interfaces 
 show how one object can be informed of updates to another object.
 
 8. “The Observer pattern supports the MVC pattern”. 
@@ -76,8 +76,8 @@ State if this statement is true or false and support your answer by use of an ap
 
 10. What are the signs that a Factory Method is at work?
 
-11. If you want to direct output to System.out instead of to a file, 
-you can create a `Writer` object that directs its output to System.out:
+11. If you want to direct output to `System.out` instead of to a file, 
+you can create a `Writer` object that directs its output to `System.out`:
 
 ```
 Writer out = new PrintWriter(System.out);
