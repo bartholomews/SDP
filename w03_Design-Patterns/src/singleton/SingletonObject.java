@@ -3,7 +3,8 @@ package singleton;
 /**
  * Lazy implementation of the Singleton Pattern, with the first thread blocked for 100ms after entering new init routine;
  * without synchronization, there's a good chance that two threads will initialise two different instances
- * of the Singleton.
+ * of the Singleton;
+ * (a) applying the synchronized keyword to the getInstance() method declaration, the Singleton is now thread-safe.
  */
 public class SingletonObject {
     private static SingletonObject singleton;
@@ -12,7 +13,7 @@ public class SingletonObject {
     private SingletonObject() {
     }
 
-    public static SingletonObject getInstance() {
+    public static synchronized SingletonObject getInstance() {
         if(singleton==null) {
             if (first) {
                 first = false;
