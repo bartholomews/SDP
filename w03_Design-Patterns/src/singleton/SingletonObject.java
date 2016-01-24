@@ -5,6 +5,8 @@ package singleton;
  * without synchronization, there's a good chance that two threads will initialise two different instances
  * of the Singleton;
  * (a) applying the synchronized keyword to the getInstance() method declaration, the Singleton is now thread-safe.
+ *
+ * @author federico.bartolomei
  */
 public class SingletonObject {
     private static SingletonObject singleton;

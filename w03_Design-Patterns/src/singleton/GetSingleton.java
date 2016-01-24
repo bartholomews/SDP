@@ -2,6 +2,8 @@ package singleton;
 
 /**
  * Runnable class for multi-threading which simply gets a Singleton instance and check its identityHashCode.
+ *
+ * @author federico.bartolomei
  */
 public class GetSingleton implements Runnable {
 

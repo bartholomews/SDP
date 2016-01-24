@@ -1,10 +1,7 @@
 package singleton;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
- *
+ * @author federico.bartolomei
  */
 public class Test {
 
