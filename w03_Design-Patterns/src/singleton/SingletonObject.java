@@ -20,32 +20,34 @@ package singleton;
  * @author federico.bartolomei
  */
 public class SingletonObject {
-    private volatile static SingletonObject singleton;
+    private volatile static SingletonObject SINGLETON;
     private static boolean first = true;
 
     private SingletonObject() {
     }
 
     public static /* synchronized */ SingletonObject getInstance() {
-        if(singleton==null) {
+        if(SINGLETON==null) {
             synchronized (SingletonObject.class) {
                 if (first) {
                     first = false;
                     System.out.println(Thread.currentThread().getName() + " ready to create a new Singleton");
                     try {
                         System.out.println(Thread.currentThread().getName() + " will sleep a little now...");
-                        Thread.currentThread().sleep(10000);
+                        Thread.currentThread().sleep(100);
                     } catch (InterruptedException ex) {
                         // do nothing
                     }
                 }
             }
-            singleton = new SingletonObject();
+            SINGLETON = new SingletonObject();
             System.out.print(Thread.currentThread().getName() + " created instance ");
-            System.out.println(Integer.toHexString(System.identityHashCode(singleton)));
+            System.out.println(Integer.toHexString(System.identityHashCode(SINGLETON)));
         }
-        System.out.println(Thread.currentThread().getName() + " returning " + Integer.toHexString(System.identityHashCode(singleton)));
-        return singleton;
+
+        System.out.println(Thread.currentThread().getName() + " returning " +
+                            Integer.toHexString(System.identityHashCode(SINGLETON)));
+        return SINGLETON;
     }
 
 }
