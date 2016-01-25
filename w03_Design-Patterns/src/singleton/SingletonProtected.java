@@ -5,9 +5,11 @@ import java.io.Serializable;
 /**
  * Serialization breaks the Singleton pattern because when deserialization is invoked
  * a new object is created, even if the constructor is private.
- *
  * Introducing the readResolve() method, the Singleton instance will be returned after a de-serialization
  * instead of a new object, so that the Singleton pattern logic is valid.
+ *
+ * Cloning should be prevented in a Singleton class: if the class must implement Cloneable,
+ * it should explicitly throw an exception in the clone() method;
  */
 public class SingletonProtected implements Serializable, Cloneable {
     private static SingletonProtected SINGLETON;
@@ -23,11 +25,6 @@ public class SingletonProtected implements Serializable, Cloneable {
         return SINGLETON;
     }
 
-    @Override
-    public Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
     /**
      * This method is invoked on the new object created by the de-serialization process
      *
@@ -37,6 +34,15 @@ public class SingletonProtected implements Serializable, Cloneable {
         return SINGLETON;
     }
 
+    /**
+     * The cloning of object is restricted.
+     *
+     * @throws CloneNotSupportedException
+     */
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        throw new CloneNotSupportedException();
+    }
 
 
 
