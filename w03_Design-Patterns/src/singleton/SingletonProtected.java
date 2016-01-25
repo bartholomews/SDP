@@ -14,7 +14,15 @@ import java.io.Serializable;
 public class SingletonProtected implements Serializable, Cloneable {
     private static SingletonProtected SINGLETON;
 
-    private SingletonProtected(){}
+    private SingletonProtected() {
+        /**
+         * To protect the Singleton from an use of Reflection which could create multiple instances,
+         * the constructor will throw an exception if called after the Singleton is already instantiated.
+         */
+        if(SINGLETON != null) {
+            throw new IllegalStateException("Singleton instance already created");
+        }
+    }
 
     public static SingletonProtected getInstance() {
         if(SINGLETON==null) {

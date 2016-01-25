@@ -40,6 +40,10 @@ public class TestSingletonProtected {
         compareInstances(s1, s2);
     }
 
+    /**
+     * The IllegalStateException thrown by the Singleton constructor when it finds the instance already instantiated
+     * causes an InvocationTargetException, in this way the Singleton pattern is protected by Reflection.
+     */
     public void testReflection() throws Exception {
         Class cls = SingletonProtected.class;
         Constructor cons = cls.getDeclaredConstructor();
