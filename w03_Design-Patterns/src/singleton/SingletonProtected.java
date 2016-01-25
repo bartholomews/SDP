@@ -9,18 +9,23 @@ import java.io.Serializable;
  * Introducing the readResolve() method, the Singleton instance will be returned after a de-serialization
  * instead of a new object, so that the Singleton pattern logic is valid.
  */
-public class SingletonSerializable implements Serializable {
-    private static SingletonSerializable SINGLETON;
+public class SingletonProtected implements Serializable, Cloneable {
+    private static SingletonProtected SINGLETON;
 
-    private SingletonSerializable(){}
+    private SingletonProtected(){}
 
-    public static SingletonSerializable getInstance() {
+    public static SingletonProtected getInstance() {
         if(SINGLETON==null) {
-            synchronized (SingletonSerializable.class) {
-                SINGLETON = new SingletonSerializable();
+            synchronized (SingletonProtected.class) {
+                SINGLETON = new SingletonProtected();
             }
         }
         return SINGLETON;
+    }
+
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 
     /**
