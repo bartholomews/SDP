@@ -1,10 +1,13 @@
 package singleton;
 
 import java.io.*;
+import java.lang.reflect.Constructor;
 
 /**
  * If readResolve() is not implemented in the Singleton class, deserialization returns a new object,
  * breaking the Singleton pattern logic.
+ *
+ * Reflection also can break the Singleton pattern: reflective access can in fact set the private constructor accessible.
  *
  */
 public class TestSingletonProtected {
@@ -23,19 +26,33 @@ public class TestSingletonProtected {
         return instance;
     }
 
-    public void testSerializable() throws IOException, ClassNotFoundException {
-        File file = new File("ser/serialized.ser");
-        serialize(file);
-        SingletonProtected s1 = deserialize(file);
-        SingletonProtected s2 = deserialize(file);
+    private void printInstances(SingletonProtected s1, SingletonProtected s2) {
         System.out.println("First instance deserialized: " + s1);
         System.out.println("Second instance deserialized: " + s2);
         System.out.println("The two instances are " + ((s1==s2) ? "EQUAL" : "DIFFERENT"));
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
+    public void testSerializable() throws IOException, ClassNotFoundException {
+        File file = new File("ser/serialized.ser");
+        serialize(file);
+        SingletonProtected s1 = deserialize(file);
+        SingletonProtected s2 = deserialize(file);
+        printInstances(s1, s2);
+    }
+
+    public void testReflection() throws Exception {
+        Class cls = SingletonProtected.class;
+        Constructor cons = cls.getDeclaredConstructor();
+        cons.setAccessible(true);
+        SingletonProtected broken1 = (SingletonProtected) cons.newInstance();
+        SingletonProtected broken2 = (SingletonProtected) cons.newInstance();
+        printInstances(broken1, broken2);
+    }
+
+    public static void main(String[] args) throws Exception {
         TestSingletonProtected run = new TestSingletonProtected();
         run.testSerializable();
+        run.testReflection();
     }
 
 }
