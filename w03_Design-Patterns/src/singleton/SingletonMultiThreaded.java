@@ -19,16 +19,16 @@ package singleton;
  *
  * @author federico.bartolomei
  */
-public class SingletonObject {
-    private volatile static SingletonObject SINGLETON;
+public class SingletonMultiThreaded {
+    private volatile static SingletonMultiThreaded SINGLETON;
     private static boolean first = true;
 
-    private SingletonObject() {
+    private SingletonMultiThreaded() {
     }
 
-    public static /* synchronized */ SingletonObject getInstance() {
+    public static /* synchronized */ SingletonMultiThreaded getInstance() {
         if(SINGLETON==null) {
-            synchronized (SingletonObject.class) {
+            synchronized (SingletonMultiThreaded.class) {
                 if (first) {
                     first = false;
                     System.out.println(Thread.currentThread().getName() + " ready to create a new Singleton");
@@ -40,7 +40,7 @@ public class SingletonObject {
                     }
                 }
             }
-            SINGLETON = new SingletonObject();
+            SINGLETON = new SingletonMultiThreaded();
             System.out.print(Thread.currentThread().getName() + " created instance ");
             System.out.println(Integer.toHexString(System.identityHashCode(SINGLETON)));
         }

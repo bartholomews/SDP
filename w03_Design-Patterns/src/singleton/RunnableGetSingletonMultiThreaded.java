@@ -5,11 +5,11 @@ package singleton;
  *
  * @author federico.bartolomei
  */
-public class GetSingleton implements Runnable {
+public class RunnableGetSingletonMultiThreaded implements Runnable {
 
     @Override
     public void run() {
-        SingletonObject s = SingletonObject.getInstance();
+        SingletonMultiThreaded s = SingletonMultiThreaded.getInstance();
         System.out.println(Integer.toHexString(System.identityHashCode(s)) + " returned");
     }
 
