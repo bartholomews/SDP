@@ -26,9 +26,9 @@ public class TestSingletonProtected {
         return instance;
     }
 
-    private void printInstances(SingletonProtected s1, SingletonProtected s2) {
-        System.out.println("First instance deserialized: " + s1);
-        System.out.println("Second instance deserialized: " + s2);
+    private void compareInstances(SingletonProtected s1, SingletonProtected s2) {
+        System.out.println("First instance: " + s1);
+        System.out.println("Second instance: " + s2);
         System.out.println("The two instances are " + ((s1==s2) ? "EQUAL" : "DIFFERENT"));
     }
 
@@ -37,7 +37,7 @@ public class TestSingletonProtected {
         serialize(file);
         SingletonProtected s1 = deserialize(file);
         SingletonProtected s2 = deserialize(file);
-        printInstances(s1, s2);
+        compareInstances(s1, s2);
     }
 
     public void testReflection() throws Exception {
@@ -46,7 +46,7 @@ public class TestSingletonProtected {
         cons.setAccessible(true);
         SingletonProtected broken1 = (SingletonProtected) cons.newInstance();
         SingletonProtected broken2 = (SingletonProtected) cons.newInstance();
-        printInstances(broken1, broken2);
+        compareInstances(broken1, broken2);
     }
 
     public static void main(String[] args) throws Exception {
