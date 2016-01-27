@@ -17,7 +17,7 @@ public class SingletonProtected implements Serializable, Cloneable {
     private SingletonProtected() {
         /**
          * To protect the Singleton from an use of Reflection which could create multiple instances,
-         * the constructor will throw an exception if called after the Singleton is already instantiated.
+         * the constructor will throw an exception if violated (called after the Singleton is already instantiated).
          */
         if(SINGLETON != null) {
             throw new IllegalStateException("Singleton instance already created");
