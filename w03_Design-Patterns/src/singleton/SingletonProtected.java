@@ -13,6 +13,7 @@ import java.io.Serializable;
  */
 public class SingletonProtected implements Serializable, Cloneable {
     private static SingletonProtected SINGLETON;
+    private static final long serialVersionUID = 5314L;
 
     private SingletonProtected() {
         /**
@@ -52,6 +53,18 @@ public class SingletonProtected implements Serializable, Cloneable {
         throw new CloneNotSupportedException();
     }
 
+    /**
+     * Avoiding to break the Singleton pattern by two different class loaders
+     * (http://stackoverflow.com/questions/15322093/breaking-of-sinlgleton-by-two-different-class-loaders)
+     */
+    private static Class getClass(String classname) throws ClassNotFoundException {
+        ClassLoader cl = Thread.currentThread().getContextClassLoader();
+        if(cl == null) {
+            cl = SingletonProtected.class.getClassLoader();
+        }
+        return (cl.loadClass(classname));
+
+    }
 
 
 }
