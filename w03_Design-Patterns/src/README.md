@@ -120,7 +120,7 @@ Factory methods therefore eliminate the need to bind application-specific classe
 The code only deals with the `Product` interface (in this case);     
 therefore it can work with any user-defined `ConcreteProduct` classes.  
 
-(*created package [1]**factory_method***)
+(*created package [**factory_method***] [1])
 
 2. The SINGLETON design pattern.    
 
@@ -145,15 +145,14 @@ of this class which was supposedly a singleton.
 With double-checked locking, we first check to see if an instance is created, and if not, then we synchronise.  
 
 Provide a sample implementation of this technique. There are some other ways to break the singleton pattern:   
-     
      • If the class is Serializable.
      • If it is Cloneable.
      • It can be broken by reflection.
      • If the class is loaded by multiple class loaders.
      
-     Try and write a class SingletonProtected that addresses some (all?) of these issues.
+   Try and write a class SingletonProtected that addresses some (all?) of these issues.
 
-(*created package [2]**singleton***)
+(*created package **[singleton]** [2])
 
 
 
