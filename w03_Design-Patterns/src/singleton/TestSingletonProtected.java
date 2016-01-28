@@ -48,9 +48,9 @@ public class TestSingletonProtected {
         Class cls = SingletonProtected.class;
         Constructor cons = cls.getDeclaredConstructor();
         cons.setAccessible(true);
-        SingletonProtected broken1 = (SingletonProtected) cons.newInstance();
-        SingletonProtected broken2 = (SingletonProtected) cons.newInstance();
-        compareInstances(broken1, broken2);
+        SingletonProtected s1 = (SingletonProtected) cons.newInstance();
+        SingletonProtected s2 = (SingletonProtected) cons.newInstance();
+        compareInstances(s1, s2);
     }
 
     public static void main(String[] args) throws Exception {
