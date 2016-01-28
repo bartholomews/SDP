@@ -154,6 +154,111 @@ Provide a sample implementation of this technique. There are some other ways to 
 
 (*created package **[singleton]** [2])
 
+3. The ADAPTER design pattern.
+
+A software developer, Max, has worked on an e-commerce website. 
+The website allows users to shop and pay online. 
+The site is integrated with a third party payment gateway, 
+through which users can pay their bills using their credit card. 
+Everything was going well, until his manager called him for a change in the project.    
+
+The manager has told him that they are planning to change the payment gateway vendor, 
+and Max has to implement that in the code. The problem that arises here is that the site 
+is attached to the **Xpay** payment gateway which takes an **Xpay** type of object. 
+The new vendor, **PayD**, only allows the **PayD** type of objects to allow the process. 
+Max doesn’t want to change the whole set of a hundred classes which have reference 
+to an object of type **XPay**. He cannot change the third party tool provided by the payment 
+gateway. The problem arises due to the incompatible interfaces between the two different parts 
+of the code. To get the process to work, Max needs to find a way to make the code compatible with 
+the vendor’s provided API. 
+
+The current code interface is not compatible with the new vendor’s interface. 
+What Max needs here is an Adapter which can sit in between the code and the vendor’s API, 
+enabling the transaction to proceed.
+
+```
+package xpay;
+
+    public interface Xpay {
+        String getCreditCardNo();
+        
+        void setCreditCardNo(String creditCardNo);
+        
+        String getCustomerName();
+        
+        void setCustomerName(String customerName);
+        
+        String getCardExpMonth();
+        
+        void setCardExpMonth(String cardExpMonth);
+        
+        String getCardExpYear();
+        
+        void setCardExpYear(String cardExpYear);
+        
+        Short getCardCVVNo();
+  
+        void setCardCVVNo(Short cardCVVNo);
+   
+        Double getAmount();
+ 
+        void setAmount(Double amount);
+    }
+```
+
+The **Xpay** interface contains setter and getter methods to get the information about 
+the credit card and customer name. The interface is implemented in the following code 
+which is used to instantiate an object of this type, and exposes the object to the vendor’s API.
+
+```
+package xpay;
+
+@lombok.Data
+public class XpayImpl implements Xpay {
+    private String creditCardNo;
+    private String customerName;
+    private String cardExpMonth;
+    private String cardExpYear;
+    private Short cardCVVNo;
+    private Double amount;
+    
+}
+```
+
+New vendor’s interface looks like this:
+
+```
+package xpay;
+
+public interface PayD {
+    String getCustCardNo();
+    
+    void setCustCardNo(String custCardNo);
+    
+    String getCardOwnerName();
+    
+    void setCardOwnerName(String cardOwnerName);
+    
+    String getCardExpMonthDate();
+    
+    void setCardExpMonthDate(String cardExpMonthDate);
+    
+    Integer getCVVNo();
+    
+    void setCVVNo(Integer cVVNo);
+    
+    Double getTotalAmount();
+    
+    void setTotalAmount(Double totalAmount);
+
+}
+```
+
+As you can see, this interface has a set of different methods which need to be implemented in the code. 
+However, **Xpay** objects are created by most parts of the code, and it is difficult (and risky) 
+to change the entire set of classes. We need some way, that’s able to fulfil the vendor’s requirement 
+to process the payment and also make less or no change to the current code base.
+Your are required to use the Adapter pattern to implement a **XpayToPayDAdapter** class to meet the requirements.
 
 
 
