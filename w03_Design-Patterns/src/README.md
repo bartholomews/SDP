@@ -91,7 +91,7 @@ Which design pattern are you using?
 
 #### Long form questions    
 
-1. The FACTORY METHOD design pattern.   
+**1.** The **FACTORY METHOD** design pattern.   
 
 The FACTORY METHOD pattern gives us a way to encapsulate the instantiations of concrete types;   
 it encapsulates the functionality required to select and instantiate an appropriate class, 
@@ -120,9 +120,9 @@ Factory methods therefore eliminate the need to bind application-specific classe
 The code only deals with the `Product` interface (in this case);     
 therefore it can work with any user-defined `ConcreteProduct` classes.  
 
-(created package [**factory_method**] [1])
+(created package [**factory_method**][1])
     
-2. The SINGLETON design pattern.    
+**2.** The **SINGLETON** design pattern.    
 
 If you didn’t provide implementations of a lazy and eager singleton pattern in *Question 6* 
 do so now. (You should provide a static `getInstance` method).  
@@ -152,9 +152,9 @@ Provide a sample implementation of this technique. There are some other ways to 
      
    Try and write a class SingletonProtected that addresses some (all?) of these issues.
 
-(created package **[singleton]** [2])
+(created package [**singleton**][2])
 
-3. The ADAPTER design pattern.
+**3.** The **ADAPTER** design pattern.
 
 A software developer, Max, has worked on an e-commerce website. 
 The website allows users to shop and pay online. 
@@ -260,7 +260,7 @@ to change the entire set of classes. We need some way, that’s able to fulfil t
 to process the payment and also make less or no change to the current code base.
 Your are required to use the Adapter pattern to implement a **XpayToPayDAdapter** class to meet the requirements.
 
-(created package [**adapter**] [3])
+(created package [**adapter**][3])
 
 
 [1]: https://github.com/f-bartholomews/exercises/tree/master/w03_Design-Patterns/src/factory_method
