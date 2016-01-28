@@ -1,5 +1,5 @@
 
-// EXPRESSIONS
+// Expressions
 
 def exp1(sun: String, temp: Double): Boolean = {
   sun.equals("sunny") && temp > 80
@@ -22,19 +22,26 @@ def toFarenheit(c: Double) = {
   c * (9.0 / 5) + 32
 }
 
-exp1("sunny", 100)
-exp1("partly cloudy", 10)
+val sunny90 = exp1("sunny", 90)
+assert(sunny90)
 
-exp2("sunny", 100)
-exp2("partly cloudy", 10)
+val rain90 = exp1("rain", 90)
+assert(!rain90)
 
+val cloudy90 = exp2("partly cloudy", 90)
+assert(cloudy90)
 
-exp3("partly cloudy", 10)
-assert(true) = exp3("sunny", 100)
+val cloudy80 = exp2("partly cloudy", 80)
+assert(!cloudy80)
 
-assert(exp3("partly cloudy", 3000))
+val rain10 = exp3("rain", 10)
+assert(!rain10)
 
-toCelsius(32)
-toCelsius(1231)
-toFarenheit(0)
-toFarenheit(666)
+val sunny5 = exp3("sunny", 5)
+assert(sunny5)
+
+val f32 = toCelsius(32)
+assert(f32 == 0, "32F != " + f32 + "C")
+
+val c0 = toFarenheit(0)
+assert(c0 == 32, "0C != " + c0 + "F")
