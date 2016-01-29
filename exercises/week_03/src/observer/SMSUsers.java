@@ -10,7 +10,6 @@ import lombok.Setter;
 public class SMSUsers implements Observer {
     private Subject s;
     private String msg;
-    private String name;
 
     public SMSUsers(Subject s, String msg) {
         this.s = s;
@@ -19,7 +18,7 @@ public class SMSUsers implements Observer {
 
     @Override
     public void update(String desc) {
-        System.out.println(getName() + " received: " + desc);
+        System.out.println(this.hashCode() + " received: " + desc);
     }
 
     @Override
