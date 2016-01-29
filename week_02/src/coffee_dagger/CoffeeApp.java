@@ -1,0 +1,17 @@
+package coffee_dagger;
+
+import helloworld.dagger.Component;
+import javax.inject.Singleton;
+
+public class CoffeeApp {
+    @Singleton
+    @Component(modules = { DripCoffeeModule.class })
+    public interface Coffee {
+        CoffeeMaker maker();
+    }
+
+    public static void main(String[] args) {
+  //      Coffee coffee = DaggerCoffeeApp.builder().build();    // TODO try to make it work
+  //      coffee.maker().brew();
+    }
+}
