@@ -1,4 +1,4 @@
-package decoupledwithfactory;
+package sample_code.di.decoupledwithfactory;
 
 import java.io.FileInputStream;
 import java.util.Properties;

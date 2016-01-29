@@ -1,4 +1,4 @@
-package helloworld.decoupled;
+package sample_code.di.decoupled;
 
 public class StandardOutMessageRenderer {
 

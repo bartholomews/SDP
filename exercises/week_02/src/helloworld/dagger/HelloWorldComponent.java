@@ -1,12 +1,12 @@
 package helloworld.dagger;
 
-import helloworld.dagger.Component;
+import dagger.Component;
 
 /**
  *
  */
 
-@Component (modules = HelloMessageModule.class)
+@Component(modules = HelloMessageModule.class)
 public interface HelloWorldComponent {
     HelloWorld get();
 }

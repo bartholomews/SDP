@@ -1,12 +1,14 @@
 package coffee_dagger;
 
-import helloworld.dagger.Module;
-import helloworld.dagger.Provides;
-import javax.inject.Singleton;
+import com.google.inject.Singleton;
+import dagger.Module;
+import dagger.Provides;
 
 @Module(includes = PumpModule.class)
 class DripCoffeeModule {
-    @Provides @Singleton Heater provideHeater() {
+    @Provides
+    @Singleton
+    Heater provideHeater() {
         return new ElectricHeater();
     }
 }

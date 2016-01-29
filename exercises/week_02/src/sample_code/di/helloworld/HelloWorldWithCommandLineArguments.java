@@ -1,4 +1,4 @@
-package helloworld;
+package sample_code.di.helloworld;
 
 public class HelloWorldWithCommandLineArguments {
 

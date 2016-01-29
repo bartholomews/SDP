@@ -1,4 +1,4 @@
-package decoupledinterface;
+package sample_code.di.decoupledinterface;
 
 public class HelloWorldDecoupledInterface {
 

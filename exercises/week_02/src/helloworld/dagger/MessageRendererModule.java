@@ -1,7 +1,7 @@
 package helloworld.dagger;
 
-import helloworld.dagger.Module;
-import helloworld.dagger.Provides;
+import dagger.Module;
+import dagger.Provides;
 
 /**
  *
@@ -9,7 +9,8 @@ import helloworld.dagger.Provides;
 
 @Module
 public class MessageRendererModule {
-    @Provides MessageRenderer provideMessageRenderer(StandardOutMessageRenderer mr) {
+    @Provides
+    MessageRenderer provideMessageRenderer(StandardOutMessageRenderer mr) {
         return mr;
     }
 

@@ -1,7 +1,7 @@
 package coffee_dagger;
 
-import helloworld.dagger.Component;
-import javax.inject.Singleton;
+import com.google.inject.Singleton;
+import dagger.Component;
 
 public class CoffeeApp {
     @Singleton

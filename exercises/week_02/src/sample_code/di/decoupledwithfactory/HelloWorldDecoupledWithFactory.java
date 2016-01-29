@@ -1,4 +1,4 @@
-package decoupledwithfactory;
+package sample_code.di.decoupledwithfactory;
 
 public class HelloWorldDecoupledWithFactory {
 

@@ -1,7 +1,7 @@
 package helloworld.dagger;
 
-import helloworld.dagger.Module;
-import helloworld.dagger.Provides;
+import dagger.Module;
+import dagger.Provides;
 
 import javax.inject.Singleton;
 
@@ -9,9 +9,10 @@ import javax.inject.Singleton;
  *
  */
 
-@Module (includes = MessageRendererModule.class)
+@Module(includes = MessageRendererModule.class)
 public class HelloMessageModule {
-    @Provides @Singleton MessageProvider provideMessageProvider(HelloMessageProvider mp) {
+    @Provides
+    @Singleton MessageProvider provideMessageProvider(HelloMessageProvider mp) {
         return mp;
 
     }

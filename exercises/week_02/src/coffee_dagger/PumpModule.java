@@ -1,11 +1,12 @@
 package coffee_dagger;
 
-import helloworld.dagger.Module;
-import helloworld.dagger.Provides;
+import dagger.Module;
+import dagger.Provides;
 
 @Module
 class PumpModule {
-    @Provides Pump providePump(Thermosiphon pump) {
+    @Provides
+    Pump providePump(Thermosiphon pump) {
         return pump;
     }
 }
