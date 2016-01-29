@@ -60,3 +60,7 @@ crashlytics-build.properties
 hs_err_pid*
 
 # Created by .ignore support plugin (hsz.mobi)
+
+# MAC OS X
+
+.DS_Store
