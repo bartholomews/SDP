@@ -5,12 +5,21 @@ package classes_and_objects
   */
 class Sailboat {
 
-  def raise(): Unit = {
-    println("Sails raised")
+  def raise(): String = {
+    val s = "Sails raised"
+    println(s)
+    s
   }
 
-  def lower(): Unit = {
-    println("Sails lowered")
+  def lower(): String = {
+    val s = "Sails lowered"
+    println(s)
+    s
+  }
+
+  def signal(): String = {
+    val flare = new Flare
+    flare.light()
   }
 
 }

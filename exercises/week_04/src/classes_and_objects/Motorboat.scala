@@ -5,12 +5,17 @@ package classes_and_objects
   */
 class Motorboat {
 
-  def on(): String = {
-    "Motor on"
-  }
+    def on(): String = {
+      "Motor on"
+    }
 
-  def off(): String = {
-    "Motor off"
-  }
+    def off(): String = {
+      "Motor off"
+    }
+
+    def signal(): String = {
+      val flare = new Flare
+      flare.light()
+    }
 
 }

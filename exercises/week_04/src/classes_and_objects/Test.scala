@@ -9,10 +9,6 @@ object Test {
 
     val sailboat = new Sailboat
 
-    /**
-      * This test fails: the methods raise() and lower()
-      * print the correct String but return a Unit type
-      */
     val r1 = sailboat.raise()
     assert(r1 == "Sails raised", "Expected Sails, raised, Got " + r1)
     val r2 = sailboat.lower()
@@ -27,6 +23,18 @@ object Test {
     assert(s1 == "Motor on", "Expected Motor on, Got " + s1)
     val s2 = motorboat.off()
     assert(s2 == "Motor off", "Expected Motor off, Got " + s2)
+
+    val flare = new Flare()
+    val f1 = flare.light()
+    assert(f1 == "Flare used!", "Expected Flare used! Got " + f1)
+
+    val sailboat2 = new Sailboat
+    val signal = sailboat2.signal()
+    assert(signal == "Flare used!", "Expected Flare used! Got " + signal)
+
+    val motorboat2 = new Motorboat
+    val flare2 = motorboat2.signal()
+    assert(flare2 == "Flare used!", "Expected Flare used! Got " + flare2)
 
   }
 
