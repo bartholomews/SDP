@@ -11,7 +11,7 @@ public class Ham extends PizzaDecorator {
 
     @Override
     public String getDesc() {
-        return super.getDesc() + ", Ham";
+        return super.getDesc() + ", Ham (18.12)";
     }
 
     @Override
