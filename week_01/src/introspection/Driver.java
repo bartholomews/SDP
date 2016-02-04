@@ -18,7 +18,17 @@ public class Driver {
         Storage<BankAccount> aStorage = new Storage<>();
         Storage<String> sStorage = new Storage<>();
 
-        Class baCls = BankAccount.class;
+        //Class baCls = BankAccount.class;
+
+        /**
+         * 6. The code compiles fine without errors, as the type
+         * later instantiated is correct. About the role of generics,
+         * it suggests that the behaviour at runtime will be the same
+         * as before, and at compile time it confirms additional
+         * type safety.
+         */
+        Class<BankAccount> baCls = BankAccount.class;
+
         try {
 
             /**
