@@ -20,21 +20,36 @@ public class Driver {
 
         Class baCls = BankAccount.class;
         try {
-          //  Object myAccount = baCls.newInstance();
+
+            /**
+             * 3. The compiler complains because the variable
+             * myAccount is of type Object and it cannot
+             * be converted to BankAccount
+            */
+            //  Object myAccount = baCls.newInstance();
 
             /**
              * 4. Now the Storage.setValue(BankAccount)
              * method compiles (as it sees a BankAccount type),
              * but the assignment does not: the Object created
              * cannot be directly converted to a newInstance of
-             * different type.
+             * unknown Class type: this is because the compiler cannot
+             * know which type of Class will have baCl at runtime,
+             * so it cannot safely accept the assignment.
              */
-            BankAccount myAccount = baCls.newInstance();
+            // BankAccount myAccount = baCls.newInstance();
+
             /**
-             * 3. The compiler complains because the variable
-             * myAccount is of type Object and it cannot
-             * be converted to BankAccount
-            */
+             * 5. With dynamic cast, the Object can be 'converted',
+             * in this case it just 'confirms' that the instance
+             * created is of type BankAccount: the compiler will trust
+             * this assignment which will be dynamically performed
+             * at runtime by the JVM. It is not type safe: any casting
+             * to a subclass of BankAccount will be accepted by the
+             * compiler and will throw a ClassCastException at runtime
+             */
+            BankAccount myAccount = (BankAccount) baCls.newInstance();
+
              aStorage.setValue(myAccount);
 
             // Deposit
