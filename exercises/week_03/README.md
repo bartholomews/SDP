@@ -145,10 +145,10 @@ of this class which was supposedly a singleton.
 With double-checked locking, we first check to see if an instance is created, and if not, then we synchronise.  
 
 Provide a sample implementation of this technique. There are some other ways to break the singleton pattern:   
-    - If the class is Serializable.
-    - If it is Cloneable.
-    - It can be broken by reflection.
-    - If the class is loaded by multiple class loaders.
+    * If the class is Serializable.
+    * If it is Cloneable.
+    * It can be broken by reflection.
+    * If the class is loaded by multiple class loaders.
      
    Try and write a class SingletonProtected that addresses some (all?) of these issues.
 
@@ -326,8 +326,8 @@ The `getDesc` method is used to obtain the pizza’s description whereas the `ge
 is used to obtain the price.    
 
 Provide two implementations of the `Pizza` interface:
-    - **`SimplyVegPizza`**  
-    - **`SimplyNonVegPizza`**   
+    * **`SimplyVegPizza`**  
+    * **`SimplyNonVegPizza`**   
     
 The decorator wraps the object whose functionality needs to be increased, 
 so it needs to implement the same interface. Provide an abstract decorator class 
@@ -339,16 +339,16 @@ public abstract class PizzaDecorator implements Pizza
 
 Now provide several implementations of `PizzaDecorator` and exercise your classes 
 with the given test class.
-    - `Ham extends PizzaDecorator`
-    - `Cheese extends PizzaDecorator`   
-    - `Chicken extends PizzaDecorator`
-    - `FetaCheese extends PizzaDecorator`
-    - `...`
+    * `Ham extends PizzaDecorator`
+    * `Cheese extends PizzaDecorator`   
+    * `Chicken extends PizzaDecorator`
+    * `FetaCheese extends PizzaDecorator`
+    * `...`
     
 (created package [**decorator**][5])
 
-[1]: https://github.com/f-bartholomews/SDP/tree/master/w03_Design-Patterns/src/factory_method
-[2]: https://github.com/f-bartholomews/SDP/tree/master/w03_Design-Patterns/src/singleton
-[3]: https://github.com/f-bartholomews/SDP/tree/master/w03_Design-Patterns/src/adapter
+[1]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_03/src/factory_method
+[2]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_03/src/singleton
+[3]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_03/src/adapter
 [4]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_03/src/observer
 [5]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_03/src/decorator
