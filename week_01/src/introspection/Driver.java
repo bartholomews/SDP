@@ -20,10 +20,18 @@ public class Driver {
 
         Class baCls = BankAccount.class;
         try {
-            Object myAccount = baCls.newInstance();
+          //  Object myAccount = baCls.newInstance();
 
             /**
-             * The compiler complains because the variable
+             * 4. Now the Storage.setValue(BankAccount)
+             * method compiles (as it sees a BankAccount type),
+             * but the assignment does not: the Object created
+             * cannot be directly converted to a newInstance of
+             * different type.
+             */
+            BankAccount myAccount = baCls.newInstance();
+            /**
+             * 3. The compiler complains because the variable
              * myAccount is of type Object and it cannot
              * be converted to BankAccount
             */
