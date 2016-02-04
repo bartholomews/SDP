@@ -7,12 +7,11 @@ public class SimplyVegPizza implements Pizza {
 
     @Override
     public String getDesc() {
-        return "SimplyVegPizza";
+        return "SimplyVegPizza " + "(" + getPrice() + ")";
     }
 
     @Override
     public Double getPrice() {
-        Integer price = 230;
-        return price.doubleValue();
+        return 230.00;
     }
 }
