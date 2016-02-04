@@ -17,6 +17,27 @@ public class Driver {
     public static void main(String[] args) {
         Storage<BankAccount> aStorage = new Storage<>();
         Storage<String> sStorage = new Storage<>();
+
+        Class baCls = BankAccount.class;
+        try {
+            Object myAccount = baCls.newInstance();
+
+            /**
+             * The compiler complains because the variable
+             * myAccount is of type Object and it cannot
+             * be converted to BankAccount
+            */
+             aStorage.setValue(myAccount);
+
+            // Deposit
+            myAccount.deposit(15);
+        } catch (InstantiationException e) {
+            // ...
+        } catch (IllegalAccessException e) {
+            // ...
+        }
+
+
     }
 
 }
