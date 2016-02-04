@@ -298,7 +298,51 @@ Remember that there are four participants in the Observer pattern:
     `ConcreteObserver` maintains a reference to a `ConcreteSubject` object 
     and implements the `Observer interface`. Each observer registers 
     with a concrete subject to receive updates.
+    
+**5.** The **DECORATOR** design pattern.
 
+You are commissioned by a pizza company make an extra topping calculator. 
+A user can ask to add extra topping to a pizza and our job is to add toppings 
+and increase its price using our classes.   
+
+*Please note:* the main aim of the DECORATOR design pattern is to attach additional 
+responsibilities to an object dynamically. Decorators provide a flexible alternative 
+to sub-classing for extending functionality. The Decorator prevents the proliferation 
+of subclasses leading to less complexity and confusion. 
+
+For simplicity, let’s create a simple `Pizza` interface which contains only two methods:
+
+```
+package decorator;
+public interface Pizza {
+    String getDesc();
+    double getPrice();
+}
+```
+
+The `getDesc` method is used to obtain the pizza’s description whereas the `getPrice` 
+is used to obtain the price.    
+
+Provide two implementations of the `Pizza` interface:
+    + **`SimplyVegPizza`**
+    + **`SimplyNonVegPizza`**
+    
+The decorator wraps the object whose functionality needs to be increased, 
+so it needs to implement the same interface. Provide an abstract decorator class 
+which will be extended by all the concrete decorators.
+
+```
+public abstract class PizzaDecorator implements Pizza
+```
+
+Now provide several implementations of `PizzaDecorator` and exercise your classes 
+with the given test class.
+    • `Ham extends PizzaDecorator`
+    • `Cheese extends PizzaDecorator`
+    • `Chicken extends PizzaDecorator`
+    • `FetaCheese extends PizzaDecorator`
+    • `...`
+    
 
 [1]: https://github.com/f-bartholomews/exercises/tree/master/w03_Design-Patterns/src/factory_method
 [2]: https://github.com/f-bartholomews/exercises/tree/master/w03_Design-Patterns/src/singleton
