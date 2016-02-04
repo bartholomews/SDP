@@ -70,6 +70,19 @@ public class Driver {
             // ...
         }
 
+        /**
+         * 7. It will print:
+         *  115.0 // balance is set at 100 once created, +15 with after deposit()
+         *  EQUAL   // both are object of class Storage, this is the type of both classes at runtime:
+         *   // runtime does not deals with generics, as the compiler applies type erasure before runtime.
+         */
+        System.out.println(aStorage.getValue().showBalance());
+        if(aStorage.getClass() == sStorage.getClass()) {
+            System.out.println("EQUAL:");
+        } else {
+            System.out.println("NOT EQUAL");
+        }
+
 
     }
 
