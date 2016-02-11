@@ -192,12 +192,74 @@ public class LazySingleton() {
 7. Using the `java.util.Observable` and `java.util.Observer` classes/interfaces  
 show how one object can be informed of updates to another object.
 
+```
+import java.util.Observable;
+import java.util.Observer;
+
+class Subject extends Observable {
+    private boolean toggle;
+
+    public Subject() {
+        this.toggle = true;
+    }
+
+    public void toggleToggle() {
+        if (this.toggle)
+            this.toggle = false;
+
+        setChanged();
+        notifyObservers();
+
+    }
+}
+
+class Watcher implements Observer {
+
+    @Override
+    public void update(Observable o, Object arg) {
+        System.out.println("Subject changed");
+    }
+}
+
+class ObserverApp {
+
+    public static void main(String[] args) {
+        Observer observer = new Watcher();
+        Subject observable = new Subject();
+        observable.addObserver(observer);
+        observable.toggleToggle();
+        observable.toggleToggle();
+    }
+}
+```
+
 8. “The Observer pattern supports the MVC pattern”.  
 State if this statement is true or false and support your answer by use of an appropriate example.
 
-9. Provide examples of two commonly used Java methods that return a new object. 
+*This statement is true: the MVC architecture might contains the Observer pattern or a design with 
+same logic within its structure: for instance, a change in the Model has to be notified to
+the View via the Controller and this can be achieved with Observer design pattern. The Model
+can be seen as a subtype of Observable and the View as a subtype of the Observe.r*
+
+9. Provide examples of two commonly used Java methods that return a new object.
+ 
+```
+ // temporary assignment could improve debugging
+ public Person tempAssigment(String name) {
+    Person person = new Person(name);  
+    return person;
+ }
+
+ // more readable and less clunky
+ public Person straightReturn(String name) {
+    return new Person(name);
+ }
+```
 
 10. What are the signs that a Factory Method is at work?    
+
+*If an object which is an implementation of the interface to be instantiated in the Factory method
+is actually created, it means that the Factory Method has worked.*
 
 11. If you want to direct output to `System.out` instead of to a file,   
 you can create a `Writer` object that directs its output to `System.out`:   
@@ -210,7 +272,9 @@ Write a code example to define a `Writer` object that wraps text at 15 character
 centres the text, sets the text to random casing, and directs the output to System.out.  
 Which design pattern are you using? 
 
-#### Long form questions    
+// TODO
+
+#### Long form questions
 
 **1.** The **FACTORY METHOD** design pattern.   
 
