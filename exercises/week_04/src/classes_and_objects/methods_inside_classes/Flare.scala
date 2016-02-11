@@ -1,4 +1,4 @@
-package methods_inside_classes
+package classes_and_objects.methods_inside_classes
 
 /**
   * 2. Methods inside Classes
