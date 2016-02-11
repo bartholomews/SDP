@@ -7,17 +7,84 @@
 1. Write down three differences between abstract classes and interfaces in Java 8.   
 Provide examples to illustrate your answer.   
 
+a. *An abstract class can have non-final member variables, interfaces can only have constants (i.e. do not have state).*
+b. *Abstract classes can have a constructor, interfaces cannot.*
+c. *Only public methods in interfaces, abstract classes can use protected (visibility/accessiblity modifiers).*
+d. *An abstract class can only extend one class, an interface can extend multiple interfaces.*
+
+```
+interface Interface {
+    int y = 1; // allowed on both interfaces and abstract classes;
+    // int x;  // not allowed on interfaces: 'Variable 'x' might not have been initialized';
+
+    //  public Interface(); // interfaces cannot have a constructor;
+
+    // protected void protectedMethod();   // modifier protected not allowed here;
+
+}
+
+interface Interface2 extends Interface {}
+interface Interface3 extends Interface, Interface2 {} // can extend multiple interfaces;
+
+abstract class Abstract {
+    final int y = 1;    // allowed on both interfaces and abstract classes;
+    int x;  // allowed in abstract classes;
+
+    public Abstract() {}    // constructor is allowed in abstract classes;
+
+ //   abstract protected void protectedMethod();  // allowed in abstract classes;
+}
+
+abstract class Abstract2 extends Abstract {}
+//abstract class Abstract3 extends Abstract, Abstract2 {} // class cannot extend multiple classes;
+
+```
+
 2. Are the following true or false?   
-    (a) Every interface must have at least one method.  
-    (b) An interface can declare instance fields that an implementing class must also declare.   
+    
+    (a) Every interface must have at least one method. 
+    **FALSE**, *an interface could extend other interfaces without adding additional methods: for instance,
+    marker interfaces (e.g. `Cloneable`, `Serializable`, 'EventListener') do not have any method declaration,
+    but are used as annotations to provide special behaviour at runtime.*
+    
+    (b) An interface can declare instance fields that an implementing class must also declare.
+    **FALSE**, *An interface cannot declare instance fields: see example above for question 1.*
+    
     (c) Although you can’t instantiate an interface, an interface definition can declare constructor methods that require   
-    an implementing class to provide constructors with given signatures.   
-    Provide examples to illustrate your answers.   
+    an implementing class to provide constructors with given signatures.
+    **FALSE**, *An interface cannot declare constructor methods: see example above for question 1.*  
 
 3. Provide an example of an interface with methods that do not imply responsibility on the part of the implementing class   
 to take action on behalf of the caller or to return a value.
 
+```
+public interface CallBack {
+    void methodToCallBack();
+}
+
+class CallBackImpl implements CallBack {
+    @Override
+    public void methodToCallBack() {
+        // implementation
+    }
+}
+
+class Caller {
+    public void register(CallBack callBack) {
+        callBack.methodToCallBack();
+    }
+
+    public static void main(String[] args) {
+        Caller caller = new Caller();
+        caller.register(new CallBackImpl());
+    }
+}
+```
+
 4. What is the value of a stub class like `WindowAdapter` which is composed of methods that do nothing?
+
+*Supplies default stubs for all methods allowing implementing classes 
+to only implement some of the methods in the original interface.*
 
 ```
 "stub/WindowListener.java"
@@ -58,12 +125,31 @@ public class WindowAdapter implements WindowListener {
     public void windowActivated() {}
     @Override
     public void windowDeactivated() {}
-
 }
 ```
 
 5. How can you prevent other developers from constructing new instances of your class?   
 Provide appropriate examples to illustrate your answer.
+
+*Using the singleton design pattern. Set the constructor as private and 
+provide a static getter to retrieve the instance when needed:*
+
+```
+public class Singleton() {    
+    // private member variable
+    private static Singleton instance;
+    
+    // private constructor
+    private Singleton() {
+        instance = new Singleton();
+    }
+    
+    // public getter method
+    public Singleton getInstance() {
+        return instance;
+    }
+}
+```
 
 6. Why might you decide to lazy-initialise a singleton instance rather than initialise   
 it in its field declaration? Provide examples of both approaches to illustrate your answer.
@@ -326,6 +412,7 @@ The `getDesc` method is used to obtain the pizza’s description whereas the `ge
 is used to obtain the price.    
 
 Provide two implementations of the `Pizza` interface:
+    
     * **`SimplyVegPizza`**  
     * **`SimplyNonVegPizza`**   
     
@@ -339,6 +426,7 @@ public abstract class PizzaDecorator implements Pizza
 
 Now provide several implementations of `PizzaDecorator` and exercise your classes 
 with the given test class.
+    
     * `Ham extends PizzaDecorator`
     * `Cheese extends PizzaDecorator`   
     * `Chicken extends PizzaDecorator`
