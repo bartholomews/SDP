@@ -66,3 +66,96 @@ The above code will result to the following output:
 [LowerTextFormatter]: testing text in lower formatter
 ```
 
+(*created package [strategy_java] [1]*)
+
+#### 3.
+
+   When is it appropriate to use the Abstract Factory design pattern?
+   
+   **
+   
+#### 4.
+
+A product company, BIGFISH, has changed the way they take orders from their
+clients. The company uses an application to take orders from them. They receive
+orders, errors in orders, feedback for the previous order, and responses to the order,
+in an XML format.
+Now the clients don’t want to follow the company’s specific XML rules. The
+clients want to use their own XML rules to communicate with BIGFISH. This means
+that for every client, the company should have client specific XML parsers. 
+For example, for the NYC client there should be four specific types of XML parsers, 
+i.e., `NYCErrorXMLParser`, `NYCFeedbackXML`, `NYCOrderXMLParser`, `NYCResponseXMLParser`,
+and four different parsers for the London client.
+The company has asked you to change the application according to the new requirements.
+To develop the parser for the original application they used a FACTORY
+METHOD design pattern in which the exact object to use is decided by the subclasses
+according to the type of parser. Now, to implement the new requirements, you are
+required to use a factory of factories, i.e., an ABSTRACT FACTORY.
+
+**Note:** You will need parsers according to client specific XMLs, so you will create
+different factories for different clients which will provide the client specific XML to
+parse. You will achieve this by creating an ABSTRACT FACTORY and then implement
+the factory to provide a client specific XML factory. Then you will use that factory
+to get the desired client specific XML parser object.
+To implement the pattern you first need to create an interface that will be implemented
+by all the concrete factories:
+ 
+```
+package abstractfactory;
+
+public interface AbstractParserFactory {
+
+    public XMLParser getParserInstance(String parserType);
+
+}
+```
+ 
+The above interface is implemented by the client specific concrete factories 
+which will provide the XML parser object to the client object. 
+The `getParserInstance` method takes the `parserType` as an argument which is 
+used to get the message specific (error parser, order parser etc) parser object.
+The following is a test class for the resulting code:
+
+```
+package abstractfactory;
+
+public class TestAbstractFactoryPattern {
+    
+    public static void main(String[] args) {
+        AbstractParserFactory parserFactory = ParserFactoryProducer.getFactory("NYCFactory");
+        XMLParser parser = parserFactory.getParserInstance("NYCORDER");
+        String msg = "";
+        msg = parser.parse();
+        System.out.println(msg);
+        System.out.println("************************************");
+        parserFactory = ParserFactoryProducer.getFactory("LondonFactory");
+        parser = parserFactory.getParserInstance("LondonFEEDBACK");
+        msg = parser.parse();
+        System.out.println(msg);
+    }
+}
+```
+
+The above code will result to the following output:
+
+```
+NYC Parsing order XML...
+NYC Order XML Message
+************************************
+London Parsing feedback XML...
+London Feedback XML Message
+```
+
+(**)
+
+#### 5.
+
+“In general, the details of object construction, such as instantiating and
+initialising the components that comprise the object, are kept within the
+object, often as part of its constructor.”
+
+Comment on this statement with reference to *modularity* and *construction bloat*.
+
+(**)
+
+[1]: 
