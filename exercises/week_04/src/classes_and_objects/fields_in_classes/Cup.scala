@@ -1,7 +1,5 @@
 package classes_and_objects.fields_in_classes
 
-import com.atomicscala.AtomicTest._
-
 class Cup {
   var percentFull = 0
   val max = 100
