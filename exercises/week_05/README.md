@@ -72,7 +72,11 @@ The above code will result to the following output:
 
    When is it appropriate to use the Abstract Factory design pattern?
    
-   **
+   *When different factory classes have different instantiation procedures but share a common
+   functionality (i.e. interface), an abstract factory can act as a superfactory to 
+   create each factory without specifying their classes; the client code can then use the
+   superfactory to create instances and use them, without knowing any details of object 
+   initialisation*
    
 #### 4.
 
@@ -146,7 +150,7 @@ London Parsing feedback XML...
 London Feedback XML Message
 ```
 
-(**)
+(*created package [abstractfactory] [2]*)
 
 #### 5.
 
@@ -156,6 +160,16 @@ object, often as part of its constructor.”
 
 Comment on this statement with reference to *modularity* and *construction bloat*.
 
-(**)
+(*A design which ties together the construction process and the components that comprise
+the object is acceptable only for simple objects with a definite representation which is 
+not expected to change. For a complex object which has to be modular, with different
+implementations of the construction process, that logic should moved out of the object class
+in order to avoid construction bloat, where the object is bulky and changes to existing
+implementation requires changes to the existing code; a possible solution in this case is 
+to use the Builder pattern, where the details of object construction are moved into 
+separated builder classes, each of which is a different representation of the implementation; 
+this way modularity can be achieved and new implementations added easily without changing 
+the existing code.*)
 
-[1]: 
+[1]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/strategy_java 
+[2]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/abstractfactory
