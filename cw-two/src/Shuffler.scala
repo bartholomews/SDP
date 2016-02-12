@@ -1,20 +1,14 @@
-import scala.util.Random
-
 /**
-  *
+  * Shuffler interface to generate the secret code
   */
-class Shuffler {
+trait Shuffler {
 
-  def shuffle(array: Array[Char], length: Int): String = {
-    if(length <= 0) {
-      throw new IndexOutOfBoundsException("Should return at least one peg!")
-    }
-    var s: String = ""
-    for (n <- 1 to length) {
-      val next = array(Random.nextInt(array.length))
-      s += next
-    }
-    s
-  }
+  /**
+    * Takes an Array of Chars (the set of 'Colours' in the game) and return a random sequence of pegs
+    *
+    * @param array the array of Chars out of which the code should be generated
+    * @param length the number of pegs in the code
+    */
+  def shuffle(array: Array[Char], length: Int): String
 
 }
