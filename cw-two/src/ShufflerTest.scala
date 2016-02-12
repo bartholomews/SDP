@@ -5,7 +5,7 @@
 import org.scalatest._
 
 class ShufflerTest extends FlatSpec with Matchers {
-  val s = new Shuffler
+  val s:Shuffler = new ShufflerImpl
   val array = Array('A', 'B', 'C')
 
   "Shuffler" should "shuffle" in {
