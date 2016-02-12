@@ -66,7 +66,7 @@ The above code will result to the following output:
 [LowerTextFormatter]: testing text in lower formatter
 ```
 
-(*created package [strategy_java] [1]*)
+(created package [strategy_java] [1])
 
 #### 3.
 
@@ -150,7 +150,7 @@ London Parsing feedback XML...
 London Feedback XML Message
 ```
 
-(*created package [abstractfactory] [2]*)
+(created package [abstractfactory] [2])
 
 #### 5.
 
@@ -160,7 +160,7 @@ object, often as part of its constructor.”
 
 Comment on this statement with reference to *modularity* and *construction bloat*.
 
-(*A design which ties together the construction process and the components that comprise
+*A design which ties together the construction process and the components that comprise
 the object is acceptable only for simple objects with a definite representation which is 
 not expected to change. For a complex object which has to be modular, with different
 implementations of the construction process, that logic should moved out of the object class
@@ -169,7 +169,7 @@ implementation requires changes to the existing code; a possible solution in thi
 to use the Builder pattern, where the details of object construction are moved into 
 separated builder classes, each of which is a different representation of the implementation; 
 this way modularity can be achieved and new implementations added easily without changing 
-the existing code.*)
+the existing code.*
 
 [1]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/strategy_java 
 [2]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/abstractfactory

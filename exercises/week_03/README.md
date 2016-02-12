@@ -512,8 +512,8 @@ is used to obtain the price.
 
 Provide two implementations of the `Pizza` interface:
     
-    * **`SimplyVegPizza`**  
-    * **`SimplyNonVegPizza`**   
+   * **`SimplyVegPizza`**  
+   * **`SimplyNonVegPizza`**   
     
 The decorator wraps the object whose functionality needs to be increased, 
 so it needs to implement the same interface. Provide an abstract decorator class 
@@ -526,11 +526,11 @@ public abstract class PizzaDecorator implements Pizza
 Now provide several implementations of `PizzaDecorator` and exercise your classes 
 with the given test class.
     
-    * `Ham extends PizzaDecorator`
-    * `Cheese extends PizzaDecorator`   
-    * `Chicken extends PizzaDecorator`
-    * `FetaCheese extends PizzaDecorator`
-    * `...`
+   * `Ham extends PizzaDecorator`
+   * `Cheese extends PizzaDecorator`   
+   * `Chicken extends PizzaDecorator`
+   * `FetaCheese extends PizzaDecorator`
+   * `...`
     
 (created package [**decorator**][5])
 
