@@ -526,11 +526,11 @@ public abstract class PizzaDecorator implements Pizza
 Now provide several implementations of `PizzaDecorator` and exercise your classes 
 with the given test class.
     
-   * `Ham extends PizzaDecorator`
-   * `Cheese extends PizzaDecorator`   
-   * `Chicken extends PizzaDecorator`
-   * `FetaCheese extends PizzaDecorator`
-   * `...`
+   * **`Ham extends PizzaDecorator`**
+   * **`Cheese extends PizzaDecorator`**   
+   * **`Chicken extends PizzaDecorator`**
+   * **`FetaCheese extends PizzaDecorator`**
+   * **`...`**
     
 (created package [**decorator**][5])
 
