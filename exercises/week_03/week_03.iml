@@ -7,9 +7,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="project-lombok" level="project" />
-    <orderEntry type="library" name="guice" level="project" />
+    <orderEntry type="library" name="project-lombok" level="application" />
     <orderEntry type="library" name="Spring-4.2.4.RELEASE" level="application" />
+    <orderEntry type="library" name="guice" level="project" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
