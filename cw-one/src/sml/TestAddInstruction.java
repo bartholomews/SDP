@@ -16,7 +16,9 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
 
 /**
+ * Test class for AddInstruction
  *
+ * @author federico.bartolomei
  */
 public class TestAddInstruction {
     // a Machine mock class with mock Registers
@@ -54,24 +56,23 @@ public class TestAddInstruction {
         when(r.getRegister(anyInt()))
 
                 .thenAnswer(invocation1 -> {
-                    value1 = random.nextInt();
+                    value1 = random.nextInt(100);
                     op1 = (Integer) invocation1.getArguments()[0];
                     return value1;
                 })
 
                 .thenAnswer(invocation2 -> {
-                    value2 = random.nextInt();
+                    value2 = random.nextInt(100);
                     op2 = (Integer) invocation2.getArguments()[0];
                     return value2;
                 })
 
                 .thenThrow(IllegalArgumentException.class);
 
-
-
-        // when Registers.setRegister(int i, int v) is called,
-        // invocation arguments are assigned to variables index and value
-        // to be checked against the operation that should have been performed;
+        /* when Registers.setRegister(int i, int v) is called,
+         invocation arguments are assigned to variables index and value
+         to be checked against the operation that should have been performed;
+        */
         doAnswer(invocation -> {
             args = invocation.getArguments();
             return null;
@@ -83,16 +84,39 @@ public class TestAddInstruction {
     }
 
     @Test
-    public void testExecuteShouldSetRegister10() {
-        Instruction test1 = new AddInstruction("f1", 10, 0, 1);
-        test1.execute(m);
+    public void testExecuteShouldGetTheRegistersAtRightIndexes() {
+        // should get registers at index 10 and 20
+        new AddInstruction("f1", 0, 10, 20).execute(m);
+        assertThat(op1, is(10));
+        assertThat(op2, is(20));
+    }
+
+    @Test
+    public void testExecuteShouldSetRegisterAtRightIndex() {
+        // should set register 10
+        Instruction test = new AddInstruction("f2", 10, 0, 1);
+        test.execute(m);
         assertThat(args[0], is(10));
     }
 
     @Test
-    public void testExecute2() {
-        Instruction test = new AddInstruction("f1", 1, 2, 3);
-        test.execute(m);
+    public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
+        // should set register 99 (with values of registers 100 and 123)
+        new AddInstruction("f3", 99, 100, 123).execute(m);
+        // the sum of values in registers 100 and 123
+        System.out.println("Register[100] = " + value1);
+        System.out.println("Register[123] = " + value2);
+        int result = value1 + value2;
+        // should go to register 99
+        assertThat(args[0], is(99));
+        // and have the right value
+        System.out.println("Set Register[99] with value " + result);
+        assertThat(args[1], is(result));
+    }
+
+    @Test
+    public void testExecuteShouldSetRegister1() {
+        new AddInstruction("f1", 1, 2, 3).execute(m);
         assertThat(args[0], is(1));
     }
 
