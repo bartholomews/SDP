@@ -1,4 +1,4 @@
-## BBK SDP 2016 - Week 5
+## BBK SDP 2015/16 - Week 5
 ###Exercises on Design Patterns II
 
 #### 1.
