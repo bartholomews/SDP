@@ -9,8 +9,11 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.greaterThan;
+import static org.hamcrest.Matchers.lessThan;
+import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
@@ -48,20 +51,20 @@ public class TestAddInstruction {
           to value1 and value2 for first and second call respectively;
           a successive call would throw an exception as for this instruction
           it should call getRegister twice to get the content of two registers only;
-          the value of the registers returned (random int between 0 and 99)
+          the value of the registers returned (a random int)
           are assigned to vars value1 and value2 for first and second call respectively,
           to be checked against the setRegister method which should add them up;
         */
         when(r.getRegister(anyInt()))
 
                 .thenAnswer(invocation1 -> {
-                    value1 = random.nextInt(100);
+                    value1 = random.nextInt();
                     op1 = (Integer) invocation1.getArguments()[0];
                     return value1;
                 })
 
                 .thenAnswer(invocation2 -> {
-                    value2 = random.nextInt(100);
+                    value2 = random.nextInt();
                     op2 = (Integer) invocation2.getArguments()[0];
                     return value2;
                 })
@@ -70,8 +73,9 @@ public class TestAddInstruction {
                 .thenThrow(IllegalStateException.class);
 
         /* when Registers.setRegister(int i, int v) is called,
-         invocation arguments are assigned to variables index and value
+         invocation arguments are assigned to variable args
          to be checked against the operation that should have been performed;
+         note: doAnswer is necessary here because setRegister() returns void;
         */
         doAnswer(invocation -> {
             args = invocation.getArguments();
@@ -83,10 +87,31 @@ public class TestAddInstruction {
         when(m.getRegisters()).thenReturn(r);
     }
 
+    // TODO test constructors with null, etc.
+
+
+    @Test
+    public void testVarsShouldBeZeroBeforeRunningExecute() {
+        assertThat(op1, is(0));
+        assertThat(op2, is(0));
+        assertThat(value1, is(0));
+        assertThat(value2, is(0));
+    }
+
+    @Test
+    public void testExecuteShouldSetRegisterWithTwoArgs(){
+        // before running the test args should not have been initialised
+        assertThat(args, is(nullValue()));
+        new AddInstruction("f1", 0, 0, 0).execute(m);
+        // after execute() is called, args should have two ints:
+        // the index of the register and its new value;
+        assertThat(args.length, is(2));
+    }
+
     @Test
     public void testExecuteShouldGetTheRegistersAtRightIndexes() {
         // should get registers at index 10 and 20
-        new AddInstruction("f1", 0, 10, 20).execute(m);
+        new AddInstruction("f2", 0, 10, 20).execute(m);
         assertThat(op1, is(10));
         assertThat(op2, is(20));
     }
@@ -94,7 +119,7 @@ public class TestAddInstruction {
     @Test
     public void testExecuteShouldSetRegisterAtRightIndex() {
         // should set register 10
-        Instruction test = new AddInstruction("f2", 10, 0, 1);
+        Instruction test = new AddInstruction("f3", 10, 0, 1);
         test.execute(m);
         assertThat(args[0], is(10));
     }
@@ -102,23 +127,22 @@ public class TestAddInstruction {
     @Test
     public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
         // should set register 99 (with values of registers 100 and 123)
-        new AddInstruction("f3", 99, 100, 123).execute(m);
+        new AddInstruction("f4", 99, 100, 123).execute(m);
         // the sum of values in registers 100 and 123
-        System.out.println("Register[100] = " + value1);
-        System.out.println("Register[123] = " + value2);
         int result = value1 + value2;
         // should go to register 99
         assertThat(args[0], is(99));
         // and have the right value
-        System.out.println("Set Register[99] with value " + result);
         assertThat(args[1], is(result));
     }
 
     @Test
     public void testExecuteShouldSetRegister1() {
-        new AddInstruction("f1", 1, 2, 3).execute(m);
+        new AddInstruction("f5", 1, 2, 3).execute(m);
         assertThat(args[0], is(1));
     }
+
+    // TODO test toString
 
 
 }
