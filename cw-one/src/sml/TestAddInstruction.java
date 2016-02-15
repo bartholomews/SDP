@@ -48,10 +48,9 @@ public class TestAddInstruction {
           to value1 and value2 for first and second call respectively;
           a successive call would throw an exception as for this instruction
           it should call getRegister twice to get the content of two registers only;
-          the value of the registers returned are assigned to vars value1 and value2
-          for first and second call respectively, to be checked against the
-          setRegister method which should add them up;
-          compiler warns for unchecked generics array creation for varargs parameter here;
+          the value of the registers returned (random int between 0 and 99)
+          are assigned to vars value1 and value2 for first and second call respectively,
+          to be checked against the setRegister method which should add them up;
         */
         when(r.getRegister(anyInt()))
 
@@ -67,7 +66,8 @@ public class TestAddInstruction {
                     return value2;
                 })
 
-                .thenThrow(IllegalArgumentException.class);
+                // compiler warns for unchecked generics array creation for varargs parameter here;
+                .thenThrow(IllegalStateException.class);
 
         /* when Registers.setRegister(int i, int v) is called,
          invocation arguments are assigned to variables index and value
