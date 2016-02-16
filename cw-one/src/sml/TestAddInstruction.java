@@ -1,5 +1,7 @@
 package sml;
 
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
@@ -9,11 +11,11 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 
-import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.hamcrest.Matchers.lessThan;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.not;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
@@ -102,44 +104,58 @@ public class TestAddInstruction {
     public void testExecuteShouldSetRegisterWithTwoArgs(){
         // before running the test args should not have been initialised
         assertThat(args, is(nullValue()));
-        new AddInstruction("f1", 0, 0, 0).execute(m);
-        // after execute() is called, args should have two ints:
-        // the index of the register and its new value;
+        new AddInstruction("f0", 0, 0, 0).execute(m);
+        // after execute() is called, Registers.setRegister(i, v)
+        // should have been called with two args: the index of the register and its new value;
         assertThat(args.length, is(2));
     }
 
     @Test
-    public void testExecuteShouldGetTheRegistersAtRightIndexes() {
+    public void testExecuteWithDifferentRegsShouldGetTheRegistersAtRightIndexes() {
         // should get registers at index 10 and 20
-        new AddInstruction("f2", 0, 10, 20).execute(m);
+        new AddInstruction("1", 0, 10, 20).execute(m);
+        // two calls to Registers.getRegister(i) should get the two registers, in any order
+        assertThat(op1, isOneOf(10, 20));
+        assertThat(op2, isOneOf(10, 20));
+        assertNotEquals(op1, op2);
+    }
+
+    @Test
+    public void testExecuteWithSameRegsShouldGetTheRegistersAtRightIndexes() {
+        // should get registers at index 10 and 20
+        new AddInstruction("1", 0, 10, 10).execute(m);
         assertThat(op1, is(10));
-        assertThat(op2, is(20));
+        assertEquals(op1, op2);
     }
 
     @Test
     public void testExecuteShouldSetRegisterAtRightIndex() {
         // should set register 10
-        Instruction test = new AddInstruction("f3", 10, 0, 1);
+        Instruction test = new AddInstruction("f2", 10, 0, 1);
         test.execute(m);
         assertThat(args[0], is(10));
     }
 
     @Test
+    public void testExecuteShouldSetRegisterWithRightValue() {
+        // should set register 99 (with values of registers 100 and 123)
+        new AddInstruction("f3", 0, 50, 10).execute(m);
+        // the sum of values in registers 50 and 100
+        int result = value1 + value2;
+        // should be passed as second argument of setRegister()
+        assertThat(args[1], is(result));
+    }
+
+    @Test
     public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
         // should set register 99 (with values of registers 100 and 123)
-        new AddInstruction("f4", 99, 100, 123).execute(m);
+        new AddInstruction("f3", 99, 100, 123).execute(m);
         // the sum of values in registers 100 and 123
         int result = value1 + value2;
         // should go to register 99
         assertThat(args[0], is(99));
         // and have the right value
         assertThat(args[1], is(result));
-    }
-
-    @Test
-    public void testExecuteShouldSetRegister1() {
-        new AddInstruction("f5", 1, 2, 3).execute(m);
-        assertThat(args[0], is(1));
     }
 
     // TODO test toString
