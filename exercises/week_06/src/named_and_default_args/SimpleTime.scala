@@ -5,7 +5,5 @@ package named_and_default_args
   */
 
 // 6.
-class SimpleTime(val hours: Int, val minutes: Int) {
-
-}
+class SimpleTime(val hours: Int, val minutes: Int) {}
 
