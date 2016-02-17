@@ -14,4 +14,10 @@ object PlanetTest extends App {
     description = "small and hot planet", moons = 0)
   p.hasMoon is false
 
+  // 9. No need to change any code: "named arguments" specifies the arguments
+  // based on the parameter names, not on position
+  val earth = new Planet(moons = 1, name = "Earth",
+    description = "a hospitable planet")
+  earth.hasMoon is true
+
 }
