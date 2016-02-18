@@ -2,7 +2,7 @@ import com.atomicscala.AtomicTest._
 
 // Parameterised Types
 
-// 17.
+// 17.---------------------------------------------------------------------
 
 // Return type is inferred:
 def inferred(c1: Char, c2: Char, c3: Char) = {
@@ -20,8 +20,8 @@ def explicitDouble(d1: Double, d2: Double, d3: Double): Vector[Double] = {
 }
 
 explicitDouble(1.0, 2.0, 3.0) is "Vector(1.0, 2.0, 3.0)"
-// 18.
 
+// 18.---------------------------------------------------------------------
 def explicitList(vector: Vector[Double]): List[Double] = {
   vector.toList
 }
@@ -29,7 +29,7 @@ def explicitList(vector: Vector[Double]): List[Double] = {
 explicitList(Vector(10.0, 20.0)) is List(10.0, 20.0)
 explicitList(Vector(1, 2, 3)) is List(1.0, 2.0, 3.0)
 
-// 19.
+// 19.---------------------------------------------------------------------
 def explicitSet[A](vector: Vector[A]):Set[A] = {
   vector.toSet
 }
@@ -38,9 +38,25 @@ explicitSet(Vector(1, 2, 3, 2, 3, 4)) is Set(1.0, 2.0, 3.0, 4.0)
 
 // Functions as Objects
 
-// 20.
-
+// 20.---------------------------------------------------------------------
 val str: String = explicitSet(Vector(1, 2, 3, 4)).mkString(",").concat(",")
 println(str)
-
 str is "1,2,3,4,"
+
+// 21.---------------------------------------------------------------------
+val dogYears = { n: Int => n * 7 }
+dogYears(10) is 70
+
+// 22.---------------------------------------------------------------------
+var s = ""
+val v = Vector(1, 5, 7, 8)
+v.foreach(n => s += dogYears(n) + " ")
+s is "7 35 49 56 "
+
+// 23.---------------------------------------------------------------------
+s = ""
+val numbers = Vector(1, 2, 5, 3, 7)
+numbers.foreach(n => s += n * n + " ")
+s is "1 4 25 9 49 "
+
+// ------------------------------------------------------------------------
