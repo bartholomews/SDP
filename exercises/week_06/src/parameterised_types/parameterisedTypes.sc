@@ -20,7 +20,6 @@ def explicitDouble(d1: Double, d2: Double, d3: Double): Vector[Double] = {
 }
 
 explicitDouble(1.0, 2.0, 3.0) is "Vector(1.0, 2.0, 3.0)"
-
 // 18.
 
 def explicitList(vector: Vector[Double]): List[Double] = {
@@ -31,10 +30,17 @@ explicitList(Vector(10.0, 20.0)) is List(10.0, 20.0)
 explicitList(Vector(1, 2, 3)) is List(1.0, 2.0, 3.0)
 
 // 19.
-
-def explicitSet(vector: Vector[Double]):Set[Double] = {
+def explicitSet[A](vector: Vector[A]):Set[A] = {
   vector.toSet
 }
-
 explicitSet(Vector(10.0, 20.0, 10.0)) is Set(10.0, 20.0)
 explicitSet(Vector(1, 2, 3, 2, 3, 4)) is Set(1.0, 2.0, 3.0, 4.0)
+
+// Functions as Objects
+
+// 20.
+
+val str: String = explicitSet(Vector(1, 2, 3, 4)).mkString(",").concat(",")
+println(str)
+
+str is "1,2,3,4,"
