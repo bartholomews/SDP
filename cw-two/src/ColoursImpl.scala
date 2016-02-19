@@ -11,11 +11,5 @@ class ColoursImpl extends Colours {
     * @param colours the set of valid colours
     * @return the first letter of each, capitalized
     */
-  override def getPegs(colours: Set[String]): Array[Char] = {
-    val pegs: Array[Char] = new Array[Char](colours.size)
-      pegs :+ colours.map(_.charAt(0).toUpper)
-        println(colours.map(_.charAt(0).toUpper))
-      //println(pegs.mkString("\n"))
-      pegs
-    }
+  override def getPegs(colours: Set[String]): List[Char] = colours.map(_.charAt(0).toUpper).toList
 }

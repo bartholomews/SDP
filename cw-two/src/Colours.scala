@@ -14,6 +14,6 @@ trait Colours {
     * @param strings the set of valid colours
     * @return the first letter of each, capitalized
     */
-  def getPegs(strings: Set[String]): Array[Char]
+  def getPegs(strings: Set[String]): List[Char]
 
 }
