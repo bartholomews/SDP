@@ -14,6 +14,7 @@ class ShufflerImpl extends Shuffler {
       val next = array(Random.nextInt(array.length))
       s += next
     }
+    println(s)
     s
   }
 

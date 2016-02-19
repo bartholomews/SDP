@@ -15,7 +15,7 @@ class ShufflerTest extends FlatSpec with Matchers {
 
   "Test valid length" should "return a String with the chosen length" in {
     s.shuffle(array, 5).length should be (5)
-    s.shuffle(array, 100).length should be (100)
+    s.shuffle(array, 10).length should be (10)
   }
 
   it should "throw IndexOutOfBoundsException if length is <= 0" in {
@@ -23,5 +23,5 @@ class ShufflerTest extends FlatSpec with Matchers {
       s.shuffle(array, 0)
     }
   }
-
+ //todo test that the string generated is truly random
 }
