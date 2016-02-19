@@ -5,7 +5,7 @@ import scala.util.Random
   */
 class ShufflerImpl extends Shuffler {
 
-  def shuffle(array: Array[Char], length: Int): String = {
+  def shuffle(array: List[Char], length: Int): String = {
     if(length <= 0) {
       throw new IndexOutOfBoundsException("Should return at least one peg!")
     }
