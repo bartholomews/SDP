@@ -2,14 +2,14 @@
 ###Exercises - Scala Day One (Part I)
 ####Introduction to the language
 
-+ Expressions
++ **Expressions**
 (worksheet [expressions.sc][1] in package [expressions][2])
-+ Methods
++ **Methods**
 (worksheet [methods.sc][3] in package [methods][4])
-+ Classes & Objects
++ **Classes & Objects**
 (worksheet [classes_and_objects.sc][5] and packages [methods_inside_classes][6]
 and [fields_in_classes][7])
-+ Vectors
++ **Vectors**
 (worksheet [vectors.sc][8] in package [vectors][9])
 
 [1]:https://github.com/f-bartholomews/SDP/blob/master/exercises/week_04/src/expressions/expressions.sc

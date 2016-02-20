@@ -1,21 +1,21 @@
 ## BBK SDP 2015/16 - Week 6
 ###Exercises
 
-+ Pattern Matching
++ **Pattern Matching**
 (in package [forecast][1])
-+ Class Arguments
++ **Class Arguments**
 (in package [classargs][2])
-+ Named & Default Arguments
++ **Named & Default Arguments**
 (in package [named_and_default_args][3])
-+ Constructors
++ **Constructors**
 (in package [tea][4])
-+ Auxiliary Constructors
++ **Auxiliary Constructors**
 (in package [aux_constructors][5])
-+ Case Classes
++ **Case Classes**
 (in package [case_classes][6])
-+ Parameterised Types
++ **Parameterised Types**
 (in package [parameterised_types][7])
-+ Functions as Objects
++ **Functions as Objects**
 (in package [parameterised_types][7])
 
 [1]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_06/src/forecast
