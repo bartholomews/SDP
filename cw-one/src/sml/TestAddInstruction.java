@@ -1,27 +1,26 @@
 package sml;
 
-import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsNot;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import java.util.Arrays;
-import java.util.Objects;
 import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
-import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 import static org.mockito.Mockito.*;
+import static org.mockito.AdditionalAnswers.returnsFirstArg;
 
 /**
- * Test class for AddInstruction
+ * Test class for AddInstruction.
+ * Here it is not tested particular cases that are not of AddInstruction's concern
+ * (for instance number of registers allowed), just mocks
+ * the classes used in its methods (Machine and underlying Registers)
+ * to verify that the correct arguments are passed.
+ * TODO make superclass junit parameterised BinaryInstruction and UnaryInstruction to avoid code repetition
  *
  * @author federico.bartolomei
  */
@@ -89,8 +88,21 @@ public class TestAddInstruction {
         when(m.getRegisters()).thenReturn(r);
     }
 
+    // -----------------------------------------------------------------------------------------------------------------
+
     // TODO test constructors with null, etc.
 
+    @Test
+    public void testConstructorShouldCallSuperClassAndPassItsArgs() {
+        // TODO
+    }
+
+    @Test
+    public void testConstructorShouldCallSuperClassAndPassLabelAndAdd() {
+        // TODO
+    }
+
+    // void execute(Machine m) -----------------------------------------------------------------------------------------
 
     @Test
     public void testVarsShouldBeZeroBeforeRunningExecute() {
@@ -158,7 +170,29 @@ public class TestAddInstruction {
         assertThat(args[1], is(result));
     }
 
-    // TODO test toString
+    // String toString() -----------------------------------------------------------------------------------------------
 
+    @Test
+    public void testToStringShouldHaveCorrectLabelAndOpCode() {
+        Instruction i = new AddInstruction("f0", 0, 0, 0);
+        String s = i.toString();
+        assertThat(s, containsString("f0: add"));
+    }
+
+    @Test
+    public void testToStringShouldHaveCorrectOperatorsAndResult() {
+        Instruction i = new AddInstruction("f0", 0, 0, 0);
+        String s = i.toString();
+        assertThat(s, containsString("0 + 0 to 0"));
+    }
+
+    @Test
+    public void testToStringShouldHaveCorrectLabelOpcodeOperatorsAndResult() {
+        Instruction i = new AddInstruction("f0", 0, 0, 0);
+        String s = i.toString();
+        assertThat(s, containsString("f0: add 0 + 0 to 0"));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
 }
