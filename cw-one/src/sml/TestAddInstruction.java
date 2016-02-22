@@ -50,10 +50,10 @@ public class TestAddInstruction {
 
         /* when getRegister is called, assign invocation arguments
           to value1 and value2 for first and second call respectively;
-          a successive call would throw an exception as for this instruction
-          it should call getRegister twice to get the content of two registers only;
+          a successive call would throw an exception as this instruction
+          should call getRegister twice to get the content of two registers only;
           the value of the registers returned (a random int)
-          are assigned to vars value1 and value2 for first and second call respectively,
+          is assigned to vars value1 and value2 for first and second call respectively,
           to be checked against the setRegister method which should add them up;
         */
         when(r.getRegister(anyInt()))
@@ -83,7 +83,7 @@ public class TestAddInstruction {
             return null;
         }).when(r).setRegister(anyInt(), anyInt());
 
-        // mock Machine class
+        // mock Machine class returning the mock Registers
         m = mock(Machine.class);
         when(m.getRegisters()).thenReturn(r);
     }
