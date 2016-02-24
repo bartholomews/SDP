@@ -1,37 +1,50 @@
 package sml;
 
 /**
- * This class ....
+ * This class implements the "add" Instruction: as it is a binary operation
+ * it extends abstract class {@see BinaryInstruction} to use its methods
+ * toString() and to get the values of the Registers for the two operands.
  *
- * @author someone
+ * @author federico.bartolomei
  */
 
-public class AddInstruction extends Instruction {
+public class AddInstruction extends BinaryInstruction {
 
-    private int result;
-    private int op1;
-    private int op2;
-
+    /**
+     * Constructor will pass label and opcode to BinaryInstruction all the way up to Instruction.
+     *
+     * @param label the label of the operation
+     * @param op the operation to be performed ("add", see overloaded constructor)
+     */
     public AddInstruction(String label, String op) {
         super(label, op);
     }
 
+    /**
+     * Constructor that should be called from the Translator class;
+     * the indexes of the Registers result, op1 and op2 are stored
+     * as fields in {@see BinaryInstruction} via setValues().
+     *
+     * @param label the label of the operation
+     * @param result the index of the Register that will hold the result
+     * @param op1 the index of the Register that hold the first operand
+     * @param op2 the index of the Register that hold the second operand
+     */
     public AddInstruction(String label, int result, int op1, int op2) {
         this(label, "add");
-        this.result = result;
-        this.op1 = op1;
-        this.op2 = op2;
+        super.setValues(result, op1, op2);
     }
 
+    /**
+     * Execute an addition operation on Machine m;
+     * the values of the operands are retrieved by the superclass {@see BinaryInstruction}
+     * using the indexes of the Registers given as arguments in the constructor.
+     *
+     * @param m the Machine on which the Instruction is to be performed
+     */
     @Override
     public void execute(Machine m) {
-        int value1 = m.getRegisters().getRegister(op1);
-        int value2 = m.getRegisters().getRegister(op2);
-        m.getRegisters().setRegister(result, value1 + value2);
+        m.getRegisters().setRegister(getResult(), getValue1(m) + getValue2(m));
     }
 
-    @Override
-    public String toString() {
-        return super.toString() + " " + op1 + " + " + op2 + " to " + result;
-    }
 }
