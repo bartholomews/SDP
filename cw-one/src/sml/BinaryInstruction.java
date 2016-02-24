@@ -15,6 +15,7 @@ public abstract class BinaryInstruction extends Instruction {
     private int op1;
     private int op2;
     private int result;
+    private BinaryOp op;
 
     /**
      * Constructor to set the label and opcode,
@@ -25,6 +26,7 @@ public abstract class BinaryInstruction extends Instruction {
      */
     public BinaryInstruction(String label, String op) {
         super(label, op);
+        this.op = getBinaryOpByOpcode(op);
     }
 
     /**
@@ -58,6 +60,25 @@ public abstract class BinaryInstruction extends Instruction {
      */
     public int getValue2(Machine m) {
         return m.getRegisters().getRegister(op2);
+    }
+
+    /** 
+     * Gets a String which should be a valid binary operation ("add", "sub", "div" etc.) 
+     * and matches it against {@see BinaryOp} enum class which holds tuples operation/symbol; 
+     * if a valid binary operation (present in BinaryOp list) is passed to the constructor, 
+     * its corresponding enum is passed to the field op. The enum is holding the String value 
+     * of the operation and the associated symbol to be used in toString() method. 
+     * @param op the String op passed to the constructor, representing a valid binary operation; 
+     * @return a {@see BinaryOp} holding the String for that operation an the associated symbol; 
+     * @throws IllegalArgumentException if the String op does not find a match with a BinaryOp value; 
+     */
+    public static BinaryOp getOpValueByOpcode(String op) { 
+        for (BinaryOp b : BinaryOp.values()) { 
+            if (b.getOpcode().equals(op)) { 
+                return b; 
+            } 
+        }
+        throw new IllegalArgumentException("Opcode does not have a match with BinaryOp operations"); 
     }
 
     /**
