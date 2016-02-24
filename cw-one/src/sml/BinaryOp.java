@@ -14,7 +14,7 @@ import java.util.function.IntBinaryOperator;
  */
 enum BinaryOp implements IntBinaryOperator {
 
-    PLUS("add", '+', (op1, op2) -> op1 + op2),
+    ADD("add", '+', (op1, op2) -> op1 + op2),
     SUB("sub", '-', (op1, op2) -> op1 - op2),
     MUL("mul", '*', (op1, op2) -> op1 * op2),
     DIV("div", '/', (op1, op2) -> op1 / op2);
