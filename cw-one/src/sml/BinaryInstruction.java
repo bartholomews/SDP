@@ -35,7 +35,8 @@ public abstract class BinaryInstruction extends Instruction {
      * @param op1    the register holding the value of the first operand
      * @param op2    the register holding the value of the second operand
      */
-    public void setValues(int result, int op1, int op2) {
+    public BinaryInstruction(String label, String opcode, int result, int op1, int op2) {
+        this(label, opcode);
         this.result = result;
         this.op1 = op1;
         this.op2 = op2;
