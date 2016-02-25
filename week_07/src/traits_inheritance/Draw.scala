@@ -7,7 +7,7 @@ object Draw extends App {
 
   def apply(s: Shape):Unit = s match {
     case Circle(r) => println("A circle of radius " + r + "cm")
-    case Rectangle(w, h) => println("A rectangle of width " + w + " and heigth " + h)
+    case Rectangle(w, h) => println("A rectangle of width " + w + " and height " + h)
     case Square(l) => println("A square of length " + l)
   }
 

@@ -28,4 +28,3 @@ case class Circle(val radius: Int) extends Shape {
 case class Rectangle(width: Double, height: Double) extends Rectangular(width, height) with Shape {}
 
 case class Square(length: Double) extends Rectangular(length, length) with Shape {}
-
