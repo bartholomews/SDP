@@ -28,11 +28,22 @@ val v2 = for (i <- v.indices) yield v(i) * 11 + 10
 v2 is Vector(21, 32, 43, 54)
 
 // 2.---------------------------------------------------------------------
-
 v.map(n => n + 1) is Vector(2, 3, 4, 5)
-for(i <- v.indices) yield v(i) + 1
+(for(i <- v.indices) yield v(i) + 1) is Vector(2, 3, 4, 5)
 
 // 3.---------------------------------------------------------------------
-class Reduce  // TODO
+// Reduce.scala
+
+val r = Vector(1, 10, 100, 1000)
+r.reduce((sum, n) => sum + n) is 1111
+
+var acc: Int = 0
+for(n <- r.indices) {
+    acc += r(n)
+    println(acc)
+}
+acc is 1111
+
 // 4.---------------------------------------------------------------------
+
 // TODO
