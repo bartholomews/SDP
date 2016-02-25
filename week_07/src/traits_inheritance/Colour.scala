@@ -13,21 +13,21 @@ sealed trait Colour {
   def Light(): Boolean = { r >= 190 || g >=190 || b >= 190}
 }
 
-class Red() extends Colour {
+case class Red() extends Colour {
   val name = "Red"
   val r = 255
   val g = 0
   val b = 0
 }
 
-class Yellow() extends Colour {
+case class Yellow() extends Colour {
   val name = "Yellow"
   val r = 255
   val g = 255
   val b = 0
 }
 
-class Pink() extends Colour {
+case class Pink() extends Colour {
   val name = "Yellow"
   val r = 255
   val g = 192
