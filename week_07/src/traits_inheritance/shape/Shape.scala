@@ -4,7 +4,7 @@ import scala.math._
 
 /**
   * Traits and Inheritance
-  * (a)
+  * (5)
   */
 sealed trait Shape {
   def sides(): Int

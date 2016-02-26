@@ -1,7 +1,8 @@
 package traits_inheritance.shape
 
 /**
-  *
+  * Traits and Inheritance
+  * (5)
   */
 object Draw extends App {
 

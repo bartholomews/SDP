@@ -2,7 +2,7 @@ package traits_inheritance.shape
 
 /**
   * Traits and Inheritance
-  * (d)
+  * (5)
   */
 sealed trait Colour {
   val name: String
