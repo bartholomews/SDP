@@ -1,4 +1,4 @@
-package traits_inheritance
+package traits_inheritance.shape
 
 import com.atomicscala.AtomicTest._
 
