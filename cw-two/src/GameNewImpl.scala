@@ -3,7 +3,7 @@
   */
 class GameNewImpl extends GameAbstractImpl {
 
-  @override
+  @Override
   def runGames: Unit = {
     do {
       do {
