@@ -25,3 +25,24 @@ def div(x: Int, y: Int) = {
 
 div(1, 2)
 div(1, 0)
+
+/**
+  * Traits and Inheritance
+  * (10.)
+  */
+
+sealed trait Maybe[A]
+
+final case class Full[A](value: A) extends Maybe[A]
+final case class Empty[A]() extends Maybe[A]
+
+object genericDivide {
+  def apply(x: Int, y: Int):Maybe[Int] = {
+    if (y == 0) Empty() else Full[Int](x/y)
+  }
+}
+
+genericDivide(1, 0) match {
+  case Full(value) => println(s"It's finite: $value")
+  case Empty() => println(s"It's infinite")
+}
