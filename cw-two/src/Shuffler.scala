@@ -11,6 +11,6 @@ trait Shuffler {
     *
     * @param array the array of Chars out of which the code should be generated
     */
-  def shuffle(array: List[Char]): String
+  def shuffle(array: Set[Char]): String
 
 }
