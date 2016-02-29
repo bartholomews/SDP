@@ -1,18 +1,13 @@
 /**
   *
   */
-class ColoursImpl extends Colours {
-
- val s: Set[String] = {
-   Set("Blue", "Yellow", "Red", "Purple", "Green", "Orange")
- }
+class ColoursImpl(override val colourSet: Set[String]) extends Colours {
 
   /**
     * Takes a set of Strings and return the first letter of each, capitalized
     *
-    * @param colours the set of valid colours
-    * @return the first letter of each, capitalized
+    * @return the first letter of each String in colourSet, capitalized
     */
-  override def getPegs(colours: Set[String]): List[Char] = colours.map(_.charAt(0).toUpper).toList
+  override def getPegs(): List[Char] = colourSet.map(_.charAt(0).toUpper).toList
 
 }

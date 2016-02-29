@@ -6,14 +6,13 @@ trait Colours {
   /**
     * The set of valid colours.
     */
-  val colours: Set[String] = Set()
+  val colourSet: Set[String] = Set()
 
   /**
     * Takes a set of Strings and return the first letter of each, capitalized
     *
-    * @param strings the set of valid colours
-    * @return the first letter of each, capitalized
+    * @return the first letter of each String in colourSet, capitalized
     */
-  def getPegs(strings: Set[String]): List[Char]
+  def getPegs(): List[Char]
 
 }
