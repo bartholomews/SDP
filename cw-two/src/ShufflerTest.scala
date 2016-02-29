@@ -7,10 +7,10 @@ import org.scalatest._
 class ShufflerTest extends FlatSpec with Matchers {
   val s:Shuffler = new ShufflerImpl(5)
   val s2: Shuffler = new ShufflerImpl(10)
-  val array = List('A', 'B', 'C')
+  val array = Set('A', 'B', 'C')
 
   "Shuffler" should "shuffle" in {
-    val arrayOneLetter = List ('A')
+    val arrayOneLetter = Set('A')
     s.shuffle(arrayOneLetter) should be ("AAAAA")
   }
 
