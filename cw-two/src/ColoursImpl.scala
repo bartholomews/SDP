@@ -10,6 +10,6 @@ class ColoursImpl(override val colourSet: Set[String]) extends Colours {
     *
     * @return the first letter of each String in colourSet, capitalized
     */
-  override def getPegs(): List[Char] = colourSet.map(_.charAt(0).toUpper).toList
+  override def getPegs(): Set[Char] = colourSet.map(_.charAt(0).toUpper)
 
 }

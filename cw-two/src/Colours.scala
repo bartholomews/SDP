@@ -13,6 +13,6 @@ trait Colours {
     *
     * @return the first letter of each String in colourSet, capitalized
     */
-  def getPegs(): List[Char]
+  def getPegs(): Set[Char]
 
 }
