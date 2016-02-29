@@ -5,8 +5,9 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
   // TODO inject these
   val colours: Colours = new ColoursImpl(Set("Blue", "Yellow", "Red", "Purple", "Green", "Orange"))
   val shuffler: Shuffler = new ShufflerImpl(4)
+  val validator: Validator = new ValidatorImpl
 
-  val guesses = 12  // TODO inject?
+  val guesses = 2 // TODO inject?
 
   @Override
   def runGames: Unit = {
@@ -35,40 +36,39 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
 
       do {
 
-        if(b) {
-        println("The secret code is " + pegs)
+        if (b) {
+          println("The secret code is " + pegs)
         }
 
-        attemptsLeft = attemptsLeft - 1
         println("You have " + attemptsLeft + " attempts left")
+        attemptsLeft = attemptsLeft - 1
 
-        // game
+        println("What is your next guess?")
+        println("Type in the characters for your guess and press enter.")
+
+        val input = validateInput()
+
+        // validate.checkBlacks() and Whites()
+
+        // printBoard
 
       } while ((attemptsLeft > 0) && !won)
 
+      if (won) println("You solved the puzzle! Good job.")
+      else println("You did not solve the puzzle. Too bad.")
 
-      again = false
+      val playMore = scala.io.StdIn.readLine("Enter Y for another game or anything else to quit: ")
+      if(playMore == "Y") again = true
 
-    } while(again)
-  }
-}
-          /*
-          blue, green , orange, purple, red, or yellow.
-
-          //run a game:
-        //print intro text
-        //generate the code
-        //take the guess (and count guesses)
-        //check the guess against code
-        //print out white/black/etc
-        finish = true
-      } while(!finish)
-      //12 or fewer attempts, then game over //while not correct guess
-      //print game over text
-      //ask if wants new game
- //   } while //not quit
+    } while (again)
   }
 
-}
 
-*/
+  def validateInput(): String = {
+    val input = scala.io.StdIn.readLine("Enter guess: ")
+    if (!validator.validateString(input, colours.getPegs(), shuffler.length)) validateInput()
+    else input
+  }
+
+
+}
