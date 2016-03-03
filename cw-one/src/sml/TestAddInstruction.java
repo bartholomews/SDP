@@ -1,18 +1,11 @@
 package sml;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
-
-import java.util.Random;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.mockito.Mockito.*;
-import static org.mockito.AdditionalAnswers.returnsFirstArg;
 
 /**
  * Unit test class for AddInstruction.
@@ -24,32 +17,56 @@ import static org.mockito.AdditionalAnswers.returnsFirstArg;
  * @author federico.bartolomei
  */
 public class TestAddInstruction extends TestBinaryInstruction {
+    private BinaryInstruction addInstruction = new AddInstruction("f0", 1, 1, 1);
 
-    // ???
+    /**
+     * An instance of AddInstruction to be tested in {@see} TestBinaryInstruction
+     *
+     * @return a new instance of AddInstruction
+     */
     @Override
-    protected Instruction init() {
-        return null;
+    protected BinaryInstruction init() {
+        return addInstruction;
     }
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // TODO test constructors with null, etc.
-
     @Test
-    public void testConstructorShouldCallSuperClassAndPassItsArgs() {
-        // TODO
-    }
-
-    @Test
-    public void testConstructorShouldCallSuperClassAndPassLabelAndAdd() {
-        // TODO
+    public void testConstructorShouldGetTheRightBinaryOp() {
+        assertThat(addInstruction.getOpcode(), is(BinaryOp.ADD));
     }
 
     // void execute(Machine m) -----------------------------------------------------------------------------------------
 
     @Test
+    public void testExecuteWithDifferentRegsShouldGetTheRegistersAtRightIndexes() throws Exception {
+        // should get registers at index 10 and 20
+        new AddInstruction("f0", 3, 10, 20).execute(m);
+        // two calls to Registers.getRegister(i) should get the two registers, in any order
+        assertThat(op1, isOneOf(10, 20));
+        assertThat(op2, isOneOf(10, 20));
+        assertNotEquals(op1, op2);
+    }
+
+    @Test
+    public void testExecuteWithSameRegsShouldGetTheRegistersAtRightIndexes() {
+        // should get registers at index 10 and 20
+        new AddInstruction("1", 0, 10, 10).execute(m);
+        assertThat(op1, is(10));
+        assertEquals(op1, op2);
+    }
+
+    @Test
+    public void testExecuteShouldSetRegisterAtRightIndex() {
+        // should set register 10
+        Instruction test = new AddInstruction("f2", 10, 0, 1);
+        test.execute(m);
+        assertThat(args[0], is(10));
+    }
+
+    @Test
     public void testExecuteShouldSetRegisterWithRightValue() {
-        // should set register 99 (with values of registers 100 and 123)
+        // should set register 0 (with values of registers 50 and 10)
         new AddInstruction("f3", 0, 50, 10).execute(m);
         // the sum of values in registers 50 and 100
         int result = value1 + value2;
@@ -59,12 +76,12 @@ public class TestAddInstruction extends TestBinaryInstruction {
 
     @Test
     public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
-        // should set register 99 (with values of registers 100 and 123)
-        new AddInstruction("f3", 99, 100, 123).execute(m);
-        // the sum of values in registers 100 and 123
+        // should set register 100 (with values of registers 5 and 10)
+        new AddInstruction("f3", 100, 5, 10).execute(m);
+        // the sum of values in registers 5 and 10
         int result = value1 + value2;
-        // should go to register 99
-        assertThat(args[0], is(99));
+        // should go to register 100
+        assertThat(args[0], is(100));
         // and have the right value
         assertThat(args[1], is(result));
     }
