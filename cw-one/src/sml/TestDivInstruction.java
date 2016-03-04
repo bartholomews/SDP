@@ -36,12 +36,12 @@ public class TestDivInstruction extends TestBinaryInstruction {
         assertThat(divInstruction.getOpcode(), is(BinaryOp.DIV));
     }
 
-    // void execute(Machine m) -----------------------------------------------------------------------------------------
+    // void execute(Machine) -----------------------------------------------------------------------------------------
 
     @Test
     public void testExecuteWithDifferentRegsShouldGetTheRegistersAtRightIndexes() throws Exception {
         // should get registers at index 10 and 20
-        new DivInstruction("f0", 0, 10, 20).execute(m);
+        new DivInstruction("f0", 0, 10, 20).execute(randomMachine);
         // two calls to Registers.getRegister(i) should get the two registers, in any order
         assertThat(op1, isOneOf(10, 20));
         assertThat(op2, isOneOf(10, 20));
@@ -51,7 +51,7 @@ public class TestDivInstruction extends TestBinaryInstruction {
     @Test
     public void testExecuteWithSameRegsShouldGetTheRegistersAtRightIndexes() {
         // should get registers at index 10 and 20
-        new DivInstruction("1", 0, 10, 10).execute(m);
+        new DivInstruction("1", 0, 10, 10).execute(randomMachine);
         assertThat(op1, is(10));
         assertEquals(op1, op2);
     }
@@ -60,14 +60,14 @@ public class TestDivInstruction extends TestBinaryInstruction {
     public void testExecuteShouldSetRegisterAtRightIndex() {
         // should set register 10
         Instruction test = new DivInstruction("f2", 10, 0, 1);
-        test.execute(m);
+        test.execute(randomMachine);
         assertThat(args[0], is(10));
     }
 
     @Test
     public void testExecuteShouldSetRegisterWithRightValue() {
         // should set register 0 (with values of registers 50 and 10)
-        new DivInstruction("f3", 0, 50, 10).execute(m);
+        new DivInstruction("f3", 0, 50, 10).execute(randomMachine);
         // the division of values in registers 50 and 100
         int result = value1 / value2;
         // should be passed as second argument of setRegister()
@@ -77,7 +77,7 @@ public class TestDivInstruction extends TestBinaryInstruction {
     @Test
     public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
         // should set register 100 (with values of registers 5 and 10)
-        new DivInstruction("f3", 100, 5, 10).execute(m);
+        new DivInstruction("f3", 100, 5, 10).execute(randomMachine);
         // the division of values in registers 5 and 10
         int result = value1 / value2;
         // should go to register 100
@@ -86,7 +86,11 @@ public class TestDivInstruction extends TestBinaryInstruction {
         assertThat(args[1], is(result));
     }
 
-    // TODO division by zero?
+    @Test(expected = ArithmeticException.class)
+    public void testDivisionByZeroShouldThrowArithmeticException() {
+        // values of registers 2 and 3 are zero with zeroMachine mock class (see TestBinaryInstruction)
+        new DivInstruction("f0/0", 1, 2, 3).execute(zeroMachine);
+    }
 
     // String toString() -----------------------------------------------------------------------------------------------
 
