@@ -15,7 +15,8 @@ import static org.mockito.Mockito.*;
 /**
  * Abstract class for unit testing of binary operations (add, subtract, multiply etc.);
  * All the subclasses of Instruction that use two operands (that is, perform an operation
- * on two registers and store the result)
+ * on two registers and store the result). Here are implemented the Mock classes to be used
+ * by the various subclasses tests.
  */
 
 public abstract class TestBinaryInstruction extends TestInstruction {
@@ -25,17 +26,10 @@ public abstract class TestBinaryInstruction extends TestInstruction {
      */
     private BinaryInstruction instruction;
 
-    /**
-     * The BinaryInstruction subclass which run these tests.
-     */
-    private Class instructionToLoad;
-    /**
-     * The arguments of the constructor of classToLoad;
-     */
-    private Class[] instructionArgs;
-
-    // a Machine mock class with mock Registers
-    Machine m;
+    // a Machine mock class with underlying randomRegs (Registers mock class with random regs values)
+    Machine randomMachine;
+    // a Machine mock class with underlying zeroRegs (Registers mock class with regs values always zero)
+    Machine zeroMachine;
     // the argument of first call Registers.getRegister(int i)
     int op1;
     // the argument of second call Registers.getRegister(int i)
@@ -63,32 +57,49 @@ public abstract class TestBinaryInstruction extends TestInstruction {
         // to generate random registers values
         Random random = new Random();
 
-        // mock Registers class
-        Registers r = mock(Registers.class);
+        // mock Registers class which always returns values 0s
+        Registers zeroRegs = mock(Registers.class);
+
+        // mock Registers class which returns random values
+        Registers randomRegs = mock(Registers.class);
 
         /* when getRegister is called, assign invocation arguments
-          to value1 and value2 for first and second call respectively;
+          to op1 and op2 for first and second call respectively;
           a successive call would throw an exception as this instruction
           should call getRegister twice to get the content of two registers only;
-          the value of the registers returned (a random int)
-          is assigned to vars value1 and value2 for first and second call respectively,
-          to be checked against the setRegister method which should add them up;
+          the value of the registers returned (a random int for randomRegs, zero for zeroRegs)
+          is assigned to vars value1 and value2 for first and second call respectively.
         */
-        when(r.getRegister(anyInt()))
-
+        when(randomRegs.getRegister(anyInt()))
                 .thenAnswer(invocation1 -> {
                     value1 = random.nextInt();
                     op1 = (Integer) invocation1.getArguments()[0];
                     return value1;
                 })
-
                 .thenAnswer(invocation2 -> {
-                    value2 = random.nextInt();
+                    // value2 should not have result 0, otherwise tests for division by zero
+                    // would be unexpected; testing division by zero should be done with
+                    // the zeroMachine(zeroRegs) mock.
+                    do {
+                        value2 = random.nextInt();
+                    } while(value2 == 0);
                     op2 = (Integer) invocation2.getArguments()[0];
                     return value2;
                 })
-
                 // compiler warns for unchecked generics array creation for varargs parameter here;
+                .thenThrow(IllegalStateException.class);
+
+        when(zeroRegs.getRegister(anyInt()))
+                .thenAnswer(invocation1 -> {
+                    value1 = 0;
+                    op1 = (Integer) invocation1.getArguments()[0];
+                    return value1;
+                })
+                .thenAnswer(invocation2 -> {
+                    value2 = 0;
+                    op2 = (Integer) invocation2.getArguments()[0];
+                    return value2;
+                })
                 .thenThrow(IllegalStateException.class);
 
         /* when Registers.setRegister(int i, int v) is called,
@@ -99,11 +110,18 @@ public abstract class TestBinaryInstruction extends TestInstruction {
         doAnswer(invocation -> {
             args = invocation.getArguments();
             return null;
-        }).when(r).setRegister(anyInt(), anyInt());
+        }).when(randomRegs).setRegister(anyInt(), anyInt());
 
-        // mock Machine class returning the mock Registers
-        m = mock(Machine.class);
-        when(m.getRegisters()).thenReturn(r);
+        doAnswer(invocation -> {
+            args = invocation.getArguments();
+            return null;
+        }).when(zeroRegs).setRegister(anyInt(), anyInt());
+
+        randomMachine = mock(Machine.class);
+        when(randomMachine.getRegisters()).thenReturn(randomRegs);
+
+        zeroMachine = mock(Machine.class);
+        when(zeroMachine.getRegisters()).thenReturn(zeroRegs);
     }
 
     @After
@@ -111,7 +129,7 @@ public abstract class TestBinaryInstruction extends TestInstruction {
         instruction = null;
     }
 
-    // void execute(Machine m) -----------------------------------------------------------------------------------------
+    // void execute(Machine) -----------------------------------------------------------------------------------------
 
     @Test
     public void testVarsShouldBeZeroBeforeRunningExecute() {
@@ -125,7 +143,7 @@ public abstract class TestBinaryInstruction extends TestInstruction {
     public void testExecuteShouldSetRegisterWithTwoArgs(){
         // before running the test args should not have been initialised
         assertThat(args, is(nullValue()));
-        instruction.execute(m);
+        instruction.execute(randomMachine);
         // after execute() is called, Registers.setRegister(i, v)
         // should have been called with two args: the index of the register and its new value;
         assertThat(args.length, is(2));
