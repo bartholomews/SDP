@@ -1,9 +1,9 @@
 package sml;
 
 /**
- * This class ....
+ * This class implements the "lin" Instruction.
  *
- * @author someone
+ * @author federico.bartolomei
  */
 
 public class LinInstruction extends Instruction {
@@ -18,7 +18,6 @@ public class LinInstruction extends Instruction {
         super(label, "lin");
         this.register = register;
         this.value = value;
-
     }
 
     @Override
