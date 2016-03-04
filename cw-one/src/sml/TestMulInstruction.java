@@ -41,7 +41,7 @@ public class TestMulInstruction extends TestBinaryInstruction {
     @Test
     public void testExecuteWithDifferentRegsShouldGetTheRegistersAtRightIndexes() throws Exception {
         // should get registers at index 10 and 20
-        new DivInstruction("f0", 0, 10, 20).execute(m);
+        new DivInstruction("f0", 0, 10, 20).execute(randomMachine);
         // two calls to Registers.getRegister(i) should get the two registers, in any order
         assertThat(op1, isOneOf(10, 20));
         assertThat(op2, isOneOf(10, 20));
@@ -51,7 +51,7 @@ public class TestMulInstruction extends TestBinaryInstruction {
     @Test
     public void testExecuteWithSameRegsShouldGetTheRegistersAtRightIndexes() {
         // should get registers at index 10 and 20
-        new MulInstruction("1", 0, 10, 10).execute(m);
+        new MulInstruction("1", 0, 10, 10).execute(randomMachine);
         assertThat(op1, is(10));
         assertEquals(op1, op2);
     }
@@ -60,14 +60,14 @@ public class TestMulInstruction extends TestBinaryInstruction {
     public void testExecuteShouldSetRegisterAtRightIndex() {
         // should set register 10
         Instruction test = new MulInstruction("f2", 10, 0, 1);
-        test.execute(m);
+        test.execute(randomMachine);
         assertThat(args[0], is(10));
     }
 
     @Test
     public void testExecuteShouldSetRegisterWithRightValue() {
         // should set register 0 (with values of registers 50 and 10)
-        new MulInstruction("f3", 0, 50, 10).execute(m);
+        new MulInstruction("f3", 0, 50, 10).execute(randomMachine);
         // the multiplication of values in registers 50 and 100
         int result = value1 * value2;
         // should be passed as second argument of setRegister()
@@ -77,7 +77,7 @@ public class TestMulInstruction extends TestBinaryInstruction {
     @Test
     public void testExecuteShouldSetRegisterAtRightIndexWithRightValue() {
         // should set register 100 (with values of registers 5 and 10)
-        new MulInstruction("f3", 100, 5, 10).execute(m);
+        new MulInstruction("f3", 100, 5, 10).execute(randomMachine);
         // the multiplication of values in registers 5 and 10
         int result = value1 * value2;
         // should go to register 100
