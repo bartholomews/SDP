@@ -36,11 +36,11 @@ public abstract class TestBinaryInstruction extends MachineMocks {
     // void execute(Machine) -----------------------------------------------------------------------------------------
 
     @Test
-    public void testVarsShouldBeZeroBeforeRunningExecute() {
-        assertThat(op1, is(0));
-        assertThat(op2, is(0));
-        assertThat(value1, is(0));
-        assertThat(value2, is(0));
+    public void testVarsShouldNotBeInitialisedBeforeRunningExecute() {
+        assertThat(op1, nullValue());
+        assertThat(op2, nullValue());
+        assertThat(value1, nullValue());
+        assertThat(value2, nullValue());
     }
 
     @Test
