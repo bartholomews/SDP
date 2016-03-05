@@ -8,18 +8,16 @@ package tea
 class Tea(name: String = "Earl Grey", milk: Boolean = false, sugar: Boolean = false, decaf: Boolean = false) {
 
   def describe = {
-    var desc = name
-    if(decaf) desc += " decaf"
-    if(milk) desc += " + milk"
-    if(sugar) desc += " + sugar"
-    desc
+    def isDecaf = if (decaf) "decaf" else ""
+    def hasMilk = if (milk) "milk" else ""
+    def hasSugar = if (sugar) "sugar" else ""
+    List(name, isDecaf, hasMilk, hasSugar).mkString(" ")
   }
 
   def calories = {
-    var n = 0
-    if(milk) n+= 100
-    if(sugar) n+= 16
-    n
+    def getMilk = if (milk) 100 else 0
+    def getSugar = if (sugar) 16 else 0
+    getMilk + getSugar
   }
 
 }
