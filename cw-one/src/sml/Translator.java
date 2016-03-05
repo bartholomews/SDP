@@ -2,7 +2,10 @@ package sml;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -82,6 +85,92 @@ public class Translator {
 
         String ins = scan();
 
+        /* TODO
+        check how many args that Instruction have,
+        the first is always String label,
+        then you need to ScanInt() for each other arg integer
+        or Scan() for each other arg String
+        */
+
+        // the names of the various implementations of Instruction
+        // are of the form OpInstruction (e.g. add -> AddInstruction etc.)
+        // if a subclass has a namespace that does not have this form,
+        // a WHAT exception will be thrown.
+        String name = Character.toUpperCase(ins.charAt(0)) + ins.substring(1) + "Instruction";
+
+        try {
+            Class impl = Class.forName("sml." + name);
+            Constructor[] constructors = impl.getConstructors();
+            for (Constructor constructor : constructors) {
+
+                Class[] param = constructor.getParameterTypes();
+
+                // skip the "secondary" constructor (String, String)
+                Class[] secondary = {String.class, String.class};
+                if (!(Arrays.equals(param, secondary))) {
+                    // get the parameters of this constructor
+
+                    int size = constructor.getParameterCount();
+                    Class[] params = constructor.getParameterTypes();
+
+                    Class[] binaryType = {String.class, int.class, int.class, int.class};
+                    Class[] linType = {String.class, int.class, int.class};
+                    Class[] bnzType = {String.class, int.class, String.class};
+                    Class[] outType = {String.class, int.class};
+                    Class[] otherType = {}; // TODO?
+
+                    if (Arrays.equals(params, binaryType)) {
+                        return (Instruction) constructor.newInstance(label, scanInt(), scanInt(), scanInt());
+                    } else if (Arrays.equals(params, linType)) {
+                        return (Instruction) constructor.newInstance(label, scanInt(), scanInt());
+                    } else if (Arrays.equals(params, bnzType)) {
+                        return (Instruction) constructor.newInstance(label, scanInt(), scan());
+                    } else if (Arrays.equals(params, outType)) {
+                        return (Instruction) constructor.newInstance(label, scanInt());
+                    } else {
+                        return null;
+                    }
+                }
+            }
+
+        } catch (ClassNotFoundException ex) {
+            System.out.println(name + ": class not found");
+        } catch (InstantiationException ex) {
+            return null; // TODO
+        } catch (IllegalAccessException ex) {
+            return null; // TODO
+        } catch (InvocationTargetException ex) {
+            return null; // TODO
+        }
+
+        return null;
+    }
+
+    /*
+    public Instruction stuff(Class[] cl, Constructor con, Object... args) throws Exception {
+        for(Class c : cl) {
+            if(c == String.class)
+        }   // see http://stackoverflow.com/questions/13477462/adding-an-unknown-number-of-parameters-to-a-method-call-in-java
+        return (Instruction) c.newInstance(args);
+    }
+    */
+
+        /* THIS DOESNT WORK, YOU CANNOT WRAP THE PARAMETER LIST.... :(
+    private List<Object> getArgs(String label, Class[] param) {
+        List<Object> objects = new ArrayList<>();
+        objects.add(label);
+        for (Class c : param) {
+            if (c.equals(String.class)) {
+                objects.add(scan());
+            } else if (c.equals(int.class)) {
+                objects.add(scanInt());
+            }
+        }
+        return objects;
+    }
+    */
+
+/*
         switch (ins) {
             case "add":
                 r = scanInt();
@@ -116,10 +205,12 @@ public class Translator {
                 return new BnzInstruction(label, r, l);
         }
 
-        // You will have to write code here for the other instructions.
-
         return null;
     }
+*/
+
+
+    // You will have to write code here for the other instructions.
 
     /*
      * Return the first word of line and remove it from line. If there is no
