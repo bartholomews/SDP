@@ -6,16 +6,13 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
   val colours: Colours = new ColoursImpl(Set("Blue", "Yellow", "Red", "Purple", "Green", "Orange"))
   val shuffler: Shuffler = new ShufflerImpl(4)
   val validator: Validator = new ValidatorImpl
-
-  val guesses = 2 // TODO inject?
+  val guesses = 4 // TODO inject?
+  val board: Board = new BoardImpl(guesses)
 
   @Override
   def runGames: Unit = {
-    val won = false
     //   do {
-    var attemptsLeft = guesses
     var again = false
-
     do {
       println("Welcome to Mastermind ...")
       println("This is a text version of the classic board game Mastermind.")
@@ -31,6 +28,10 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
         "When entering guesses you only need to enter the first character of the color as a capital letter.\n" +
         "You have " + guesses + " tries to guess the answer or you lose the game.\n")
 
+      var gameBoard = board.initBoard
+      var attemptsLeft = guesses
+      var won = false
+
       println("Generating secret code ....")
       val pegs: String = shuffler.shuffle(colours.getPegs())
 
@@ -40,6 +41,8 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
           println("The secret code is " + pegs)
         }
 
+        board.printBoard(gameBoard)
+
         println("You have " + attemptsLeft + " attempts left")
         attemptsLeft = attemptsLeft - 1
 
@@ -48,14 +51,19 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
 
         val input = validateInput()
 
-        // validate.checkBlacks() and Whites()
+        val result = validator.check(input.toList, pegs.toList)
 
-        // printBoard
+        gameBoard = board.updateBoard(gameBoard, guesses - attemptsLeft, input, result)
+
+        if(result.equals("Black " * shuffler.length)) won = true
 
       } while ((attemptsLeft > 0) && !won)
 
       if (won) println("You solved the puzzle! Good job.")
-      else println("You did not solve the puzzle. Too bad.")
+      else {
+        board.printBoard(gameBoard)
+        println("You did not solve the puzzle. Too bad.")
+      }
 
       val playMore = scala.io.StdIn.readLine("Enter Y for another game or anything else to quit: ")
       if(playMore == "Y") again = true
@@ -69,6 +77,5 @@ class GameNewImpl(b: Boolean) extends GameAbstractImpl {
     if (!validator.validateString(input, colours.getPegs(), shuffler.length)) validateInput()
     else input
   }
-
 
 }
