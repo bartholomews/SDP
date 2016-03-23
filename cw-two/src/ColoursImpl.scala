@@ -1,9 +1,9 @@
 /**
   *
   */
-class ColoursImpl(override val colourSet: Set[String]) extends Colours {
+class ColoursImpl() extends Colours {
 
-  // TODO chars should not have repeating first letters
+  override val colourSet = Set("blue", "yellow", "red", "purple", "green", "orange")
 
   /**
     * Takes a set of Strings and return the first letter of each, capitalized

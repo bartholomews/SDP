@@ -4,8 +4,7 @@ import org.scalatest.{FlatSpec, Matchers}
   *
   */
 class ColoursTest extends FlatSpec with Matchers {
-  val stringSet: Set[String] = Set ("bLUE", "yellow", "GREEN")
-  val colours: Colours = new ColoursImpl(stringSet)
+  val colours: Colours = new ColoursImpl()
 
   "getPegs" should "get a set of Strings and return an Array of Char" in {
     colours.getPegs() shouldBe a [Array[Char]]
@@ -13,7 +12,7 @@ class ColoursTest extends FlatSpec with Matchers {
 
   "getPegs" should "return same length as fed Set" in {
     val charArray = colours.getPegs()
-    charArray.size should be (3)
+    charArray.size should be (6)
   }
 
   "getPegs" should "return the first letter capitalized of fed Set" in {
@@ -21,7 +20,7 @@ class ColoursTest extends FlatSpec with Matchers {
 
     charList.head should be ('B')
     charList(1) should be ('Y')
-    charList(2) should be ('G')
+    charList(2) should be ('R')
   }
 
 
