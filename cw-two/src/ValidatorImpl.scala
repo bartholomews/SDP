@@ -12,7 +12,8 @@ class ValidatorImpl extends Validator {
     val (black, white) = splitLists(input, code)
     val inputLeft = white.unzip._1
     val codeLeft = white.unzip._2
-    "Black " * black.size + "White " * checkWhites(inputLeft, codeLeft).size
+    val result = "Black " * black.size + "White " * checkWhites(inputLeft, codeLeft).size
+    if(result.isEmpty) "No Pegs" else result
   }
 
   def splitLists(input: List[Char], code: List[Char]) = {
