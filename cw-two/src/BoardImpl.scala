@@ -17,6 +17,11 @@ class BoardImpl(val guesses: Int) extends Board {
     board
   }
 
+  def updateBoard(board: Array[String], text: String): Array[String] = {
+    board(0) = text
+    board
+  }
+
   def printBoard(board: Array[String]) = {
     board.foreach(x => println(x))
   }
