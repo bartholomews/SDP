@@ -3,7 +3,9 @@ import scala.util.Random
 /**
   *
   */
-class ShufflerImpl(val length: Int) extends Shuffler {
+class ShufflerImpl() extends Shuffler {
+
+  val length = 4
 
   def shuffle(set: Set[Char]): String = {
     val list = set.toList
