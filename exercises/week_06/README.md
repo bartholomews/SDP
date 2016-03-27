@@ -1,5 +1,5 @@
 ## BBK SDP 2015/16 - Week 6
-###Exercises
+### Exercises - Functional Programming
 
 + **Pattern Matching**
 (in package [forecast][1])
