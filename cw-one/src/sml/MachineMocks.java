@@ -9,7 +9,7 @@ import static org.mockito.Mockito.*;
  * Class for unit testing, setting up the mocks used by the other subclasses tests;
  */
 
-public class MachineMocks {
+class MachineMocks {
 
     // a Machine mock class with underlying randomRegs (Registers mock class with random regs values)
     Machine randomMachine;
@@ -35,12 +35,12 @@ public class MachineMocks {
     // Set up the mocking classes --------------------------------------------------------------------------------------
 
     // set up mocks with valid Labels
-    public void setupMocks() {
+    void setupMocks() {
         setupMocks(getValidLabels());
     }
 
     // set up mocks with custom Labels (see TestBnzInstruction)
-    public void setupMocks(Labels l) {
+    void setupMocks(Labels l) {
         randomMachine = mock(Machine.class);
         Registers random = getRandomRegs();
         when(randomMachine.getRegisters()).thenReturn(random);
@@ -60,7 +60,7 @@ public class MachineMocks {
         }).when(zeroMachine).setPc(anyInt());
     }
 
-    public Registers getRandomRegs() {
+    private Registers getRandomRegs() {
         // to generate random registers values
         Random random = new Random();
 
@@ -84,7 +84,7 @@ public class MachineMocks {
                     // the zeroMachine(zeroRegs) mock.
                     do {
                         value2 = random.nextInt();
-                    } while (value2 == 0);
+                    } while (value2.equals(0));
                     op2 = (Integer) invocation2.getArguments()[0];
                     return value2;
                 });
@@ -102,7 +102,7 @@ public class MachineMocks {
         return randomRegs;
     }
 
-    public Registers getZeroRegs() {
+    private Registers getZeroRegs() {
         // mock Registers class which always returns values 0s
         Registers zeroRegs = mock(Registers.class);
 
@@ -131,7 +131,7 @@ public class MachineMocks {
         return zeroRegs;
     }
 
-    public Labels getValidLabels() {
+    Labels getValidLabels() {
 
         // Labels mock class which returns an valid label (see TestBnzInstruction)
         Labels validLabel = mock(Labels.class);
@@ -142,13 +142,13 @@ public class MachineMocks {
                     // return any int != -1
                     do {
                         index = new Random().nextInt();
-                    } while(index == -1);
+                    } while(index.equals(-1));
                     return index;
                 });
         return validLabel;
     }
 
-    public Labels getUnknownLabels() {
+    Labels getUnknownLabels() {
         // Labels mock class which returns an unknown label (see TestBnzInstruction)
         Labels unknownLabels = mock(Labels.class);
         when(unknownLabels.indexOf(anyString()))

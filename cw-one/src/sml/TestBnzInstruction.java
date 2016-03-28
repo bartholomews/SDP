@@ -15,13 +15,13 @@ import static org.hamcrest.Matchers.*;
  */
 public class TestBnzInstruction extends MachineMocks {
     // mock Machine returning random register values and returning valid Labels (i.e. indexOf(anyString) != -1)
-    Machine validRandom;
+    private Machine validRandom;
     // mock Machine returning random register values and returning unknown Labels (i.e. indexOf(anyString) == -1)
-    Machine invalidRandom;
+    private Machine invalidRandom;
     // mock Machine returning register values always 0 and returning valid Labels
-    Machine validZero;
+    private Machine validZero;
     // mock Machine returning register values always 0 and returning unknown Labels
-    Machine invalidZero;
+    private Machine invalidZero;
 
     @Before
     public void setup() {
