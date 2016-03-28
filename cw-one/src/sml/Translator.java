@@ -22,6 +22,8 @@ public class Translator {
     private Labels labels; // The labels of the program being translated
     private ArrayList<Instruction> program; // The program to be created
     private String fileName; // source file of SML code
+    private static final String INSTRUCTION = "Instruction";
+    private static final String SML = "sml.";
 
     public Translator(String fileName) {
         this.fileName = SRC + "/" + fileName;
@@ -71,7 +73,7 @@ public class Translator {
         return true;
     }
 
-    // line should consist of an MML instruction, with its label already
+    // line should consist of an SML instruction, with its label already
     // removed. Translate line into an instruction with label label
     // and return the instruction
     public Instruction getInstruction(String label) {
@@ -84,40 +86,34 @@ public class Translator {
             return null;
 
         String ins = scan();
-
-        /* TODO
-        check how many args that Instruction have,
-        the first is always String label,
-        then you need to ScanInt() for each other arg integer
-        or Scan() for each other arg String
-        */
-
-        // the names of the various implementations of Instruction
-        // are of the form OpInstruction (e.g. add -> AddInstruction etc.)
-        // if a subclass has a namespace that does not have this form,
-        // a WHAT exception will be thrown.
-        String name = Character.toUpperCase(ins.charAt(0)) + ins.substring(1) + "Instruction";
+        // Subclasses of Instruction need to have name in the form "[Ins]Instruction" (e.g. AddInstruction)
+        String name = Character.toUpperCase(ins.charAt(0)) + ins.substring(1) + INSTRUCTION;
 
         try {
-            Class impl = Class.forName("sml." + name);
+            // get the Instruction subclass in sml package
+            Class impl = Class.forName(SML + name);
+            // get all its constructors
             Constructor[] constructors = impl.getConstructors();
             for (Constructor constructor : constructors) {
 
                 Class[] param = constructor.getParameterTypes();
-
-                // skip the "secondary" constructor (String, String)
+                // skip the constructor inherited from Instruction (with params String, String)
                 Class[] secondary = {String.class, String.class};
                 if (!(Arrays.equals(param, secondary))) {
-                    // get the parameters of this constructor
 
-                    int size = constructor.getParameterCount();
+                   // int size = constructor.getParameterCount();
+
+                    // get the parameters of the next constructor
                     Class[] params = constructor.getParameterTypes();
 
+                    // New implementations of Instruction which have a constructor different
+                    // from the below formats need to be added together with a new return statement.
                     Class[] binaryType = {String.class, int.class, int.class, int.class};
                     Class[] linType = {String.class, int.class, int.class};
-                    Class[] bnzType = {String.class, int.class, String.class};
                     Class[] outType = {String.class, int.class};
-                    Class[] otherType = {}; // TODO?
+                    Class[] bnzType = {String.class, int.class, String.class};
+                    Class[] intStringStringType = {String.class, int.class, String.class, String.class};
+                    Class[] otherType = {}; // ADD HERE
 
                     if (Arrays.equals(params, binaryType)) {
                         return (Instruction) constructor.newInstance(label, scanInt(), scanInt(), scanInt());
@@ -127,6 +123,8 @@ public class Translator {
                         return (Instruction) constructor.newInstance(label, scanInt(), scan());
                     } else if (Arrays.equals(params, outType)) {
                         return (Instruction) constructor.newInstance(label, scanInt());
+                    } else if (Arrays.equals(params, intStringStringType)) {
+                        return (Instruction) constructor.newInstance(label, scanInt(), scan(), scan());
                     } else {
                         return null;
                     }
@@ -136,13 +134,12 @@ public class Translator {
         } catch (ClassNotFoundException ex) {
             System.out.println(name + ": class not found");
         } catch (InstantiationException ex) {
-            return null; // TODO
+            System.out.println(name + " could not be instantiated");
         } catch (IllegalAccessException ex) {
-            return null; // TODO
+            System.out.println("Cannot get access to " + name);
         } catch (InvocationTargetException ex) {
-            return null; // TODO
+            ex.getTargetException();
         }
-
         return null;
     }
 
