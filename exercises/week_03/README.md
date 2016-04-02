@@ -9,7 +9,7 @@ Provide examples to illustrate your answer.
 
    * *An abstract class can have non-final member variables, interfaces can only have constants (i.e. do not have state).*
    * *Abstract classes can have a constructor, interfaces cannot.*
-   * *Only public methods in interfaces, abstract classes can use protected (visibility/accessiblity modifiers).*
+   * *Only public methods in interfaces, abstract classes can use protected (visibility/accessibility modifiers).*
    * *An abstract class can only extend one class, an interface can extend multiple interfaces.*
     
 ```
@@ -46,7 +46,7 @@ abstract class Abstract2 extends Abstract {}
     (a) Every interface must have at least one method.  
     
     **FALSE**, *an interface could extend other interfaces without adding additional methods: for instance,
-    marker interfaces (e.g. `Cloneable`, `Serializable`, 'EventListener') do not have any method declaration,
+    marker interfaces (e.g. `Cloneable`, `Serializable`, `EventListener`) do not have any method declaration,
     but are used as annotations to provide special behaviour at runtime.*
     
     (b) An interface can declare instance fields that an implementing class must also declare.
@@ -110,7 +110,7 @@ public interface WindowListener {
 
 ```
 "stub/WindowAdapter.java"
-￼￼￼
+
 package stub;
 
 public class WindowAdapter implements WindowListener {
@@ -239,7 +239,7 @@ State if this statement is true or false and support your answer by use of an ap
 *This statement is true: the MVC architecture might contains the Observer pattern or a design with 
 same logic within its structure: for instance, a change in the Model has to be notified to
 the View via the Controller and this can be achieved with Observer design pattern. The Model
-can be seen as a subtype of Observable and the View as a subtype of the Observe.r*
+can be seen as a subtype of Observable and the View as a subtype of the Observer*
 
 9. Provide examples of two commonly used Java methods that return a new object.
  
@@ -330,12 +330,13 @@ of this class which was supposedly a singleton.
 With double-checked locking, we first check to see if an instance is created, and if not, then we synchronise.  
 
 Provide a sample implementation of this technique. There are some other ways to break the singleton pattern:   
-    * If the class is Serializable.
-    * If it is Cloneable.
-    * It can be broken by reflection.
-    * If the class is loaded by multiple class loaders.
-     
-   Try and write a class SingletonProtected that addresses some (all?) of these issues.
+    
+    + If the class is Serializable.
+    + If it is Cloneable.
+    + It can be broken by reflection.
+    + If the class is loaded by multiple class loaders.
+    
+Try and write a class SingletonProtected that addresses some (all?) of these issues.
 
 (created package [**singleton**][2])
 
