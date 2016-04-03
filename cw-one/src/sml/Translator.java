@@ -77,15 +77,11 @@ public class Translator {
     // removed. Translate line into an instruction with label label
     // and return the instruction
     public Instruction getInstruction(String label) {
-        int s1; // Possible operands of the instruction
-        int s2;
-        int r;
-        String l;
-
         if (line.equals(""))
             return null;
 
         String ins = scan();
+
         // Subclasses of Instruction need to have name in the form "[Ins]Instruction" (e.g. AddInstruction)
         String name = Character.toUpperCase(ins.charAt(0)) + ins.substring(1) + INSTRUCTION;
 
@@ -95,42 +91,28 @@ public class Translator {
             // get all its constructors
             Constructor[] constructors = impl.getConstructors();
             for (Constructor constructor : constructors) {
-
                 Class[] param = constructor.getParameterTypes();
                 // skip the constructor inherited from Instruction (with params String, String)
-                Class[] secondary = {String.class, String.class};
-                if (!(Arrays.equals(param, secondary))) {
-
-                   // int size = constructor.getParameterCount();
-
+                Class[] constructorToSkip = {String.class, String.class};
+                if (!(Arrays.equals(param, constructorToSkip))) {
                     // get the parameters of the next constructor
                     Class[] params = constructor.getParameterTypes();
-
-                    // New implementations of Instruction which have a constructor different
-                    // from the below formats need to be added together with a new return statement.
-                    Class[] binaryType = {String.class, int.class, int.class, int.class};
-                    Class[] linType = {String.class, int.class, int.class};
-                    Class[] outType = {String.class, int.class};
-                    Class[] bnzType = {String.class, int.class, String.class};
-                    Class[] intStringStringType = {String.class, int.class, String.class, String.class};
-                    Class[] otherType = {}; // ADD HERE
-
-                    if (Arrays.equals(params, binaryType)) {
-                        return (Instruction) constructor.newInstance(label, scanInt(), scanInt(), scanInt());
-                    } else if (Arrays.equals(params, linType)) {
-                        return (Instruction) constructor.newInstance(label, scanInt(), scanInt());
-                    } else if (Arrays.equals(params, bnzType)) {
-                        return (Instruction) constructor.newInstance(label, scanInt(), scan());
-                    } else if (Arrays.equals(params, outType)) {
-                        return (Instruction) constructor.newInstance(label, scanInt());
-                    } else if (Arrays.equals(params, intStringStringType)) {
-                        return (Instruction) constructor.newInstance(label, scanInt(), scan(), scan());
-                    } else {
-                        return null;
+                    Object[] args = new Object[params.length];
+                    // String at index 0 is already scanned and assigned to "label"
+                    args[0] = label;
+                    for(int i=1; i<params.length; i++) {
+                        Class<?> c = params[i];
+                        if (c.isAssignableFrom(String.class)) {
+                            args[i] = scan();
+                        } else if (c.isAssignableFrom(int.class)) {
+                            args[i] = scanInt();
+                        } else {
+                            throw new IllegalArgumentException(c.getName() + " is not supported");
+                        }
                     }
+                    return (Instruction) constructor.newInstance(args);
                 }
             }
-
         } catch (ClassNotFoundException ex) {
             System.out.println(name + ": class not found");
         } catch (InstantiationException ex) {
@@ -142,31 +124,6 @@ public class Translator {
         }
         return null;
     }
-
-    /*
-    public Instruction stuff(Class[] cl, Constructor con, Object... args) throws Exception {
-        for(Class c : cl) {
-            if(c == String.class)
-        }   // see http://stackoverflow.com/questions/13477462/adding-an-unknown-number-of-parameters-to-a-method-call-in-java
-        return (Instruction) c.newInstance(args);
-    }
-    */
-
-        /* THIS DOESNT WORK, YOU CANNOT WRAP THE PARAMETER LIST.... :(
-    private List<Object> getArgs(String label, Class[] param) {
-        List<Object> objects = new ArrayList<>();
-        objects.add(label);
-        for (Class c : param) {
-            if (c.equals(String.class)) {
-                objects.add(scan());
-            } else if (c.equals(int.class)) {
-                objects.add(scanInt());
-            }
-        }
-        return objects;
-    }
-    */
-
 /*
         switch (ins) {
             case "add":
@@ -201,13 +158,9 @@ public class Translator {
                 l = scan();
                 return new BnzInstruction(label, r, l);
         }
-
         return null;
     }
 */
-
-
-    // You will have to write code here for the other instructions.
 
     /*
      * Return the first word of line and remove it from line. If there is no
