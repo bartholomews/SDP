@@ -1,5 +1,7 @@
 /**
+  * Implementation of `Board` trait.
   *
+  * @author annabel.jump, federico.bartolomei
   */
 class BoardImpl(val guesses: Int) extends Board {
 

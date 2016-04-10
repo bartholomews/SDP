@@ -1,5 +1,7 @@
 /**
+  * Trait to implement a String representation of the Mastermind Game board.
   *
+  * @author annabel.jump, federico.bartolomei
   */
 trait Board {
 
