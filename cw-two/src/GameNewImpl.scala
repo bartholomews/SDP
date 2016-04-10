@@ -1,55 +1,71 @@
+import scala.annotation.tailrec
+
 /**
+  * Implementation of the Mastermind game
   *
+  * @author annabel.jump, federico.bartolomei
   */
 class GameNewImpl(b: Boolean, guesses: Int) extends GameAbstractImpl {
+  // Modules are injected with MacWire
   val modules = new GameModules()
   val colours: Colours = modules.colours
   val shuffler: Shuffler = modules.shuffler
   val validator: Validator = modules.validator
   val boardUtil: Board = modules.board(guesses)
 
-  val pegs = colours.getPegs()
+  val pegs = colours.getPegs
 
   @Override
-  def runGames: Unit = {
+  def runGames(): Unit = {
     printIntro()
     play()
   }
 
-  def play(): Unit = {
+  @tailrec
+  private def play(): Unit = {
     println("Generating secret code ....")
-    val code: String = shuffler.shuffle(colours.getPegs())
+    val code: String = shuffler.shuffle(colours.getPegs)
     val gameBoard = boardUtil.initBoard
     playSession(gameBoard, guesses, code)
     val playMore = scala.io.StdIn.readLine("Enter Y for another game or anything else to quit: ")
-    if(playMore == "Y") play()
+    if(playMore.toUpperCase() == "Y") play()
+    else println("Goodbye.")
   }
 
-  def playSession(board: Array[String], attemptsLeft: Int, code: String) {
-    if (b) {
-      println("The secret code is " + code + '\n')
-    }
+  @tailrec
+  private def playSession(board: Array[String], attemptsLeft: Int, code: String) {
+    if(b) println("The secret code is " + code + '\n')
     boardUtil.printBoard(board)
-    println("You have " + attemptsLeft + " attempts left")
-    println("What is your next guess?")
+    println("You have " + attemptsLeft + " attempts left\nWhat is your next guess?")
     println("Type in the characters for your guess and press enter.")
     val input = validateInput()
 
     val result = validator.check(input.toList, code.toList)
-    val newBoard = boardUtil.updateBoard(board, guesses - attemptsLeft + 1, input, result)
 
-    if(result.equals("Black " * shuffler.length)) {
-      val finalBoard = boardUtil.updateBoard(newBoard, input)
-      boardUtil.printBoard(finalBoard)
-      println ("You solved the puzzle! Good job.")
+    (result: Result) match {
+
+      case Won(message) =>
+        val newBoard = boardUtil.updateBoard(board, guesses - attemptsLeft + 1, input, message)
+        val finalBoard = boardUtil.updateBoard(newBoard, input)
+        boardUtil.printBoard(finalBoard)
+        println("You solved the puzzle! Good job.")
+
+      case NotWon(message) =>
+        val newBoard = boardUtil.updateBoard(board, guesses - attemptsLeft + 1, input, message)
+        if(attemptsLeft > 1) playSession(newBoard, attemptsLeft - 1, code)
+        else {
+          val finalBoard = boardUtil.updateBoard(newBoard, input)
+          boardUtil.printBoard(finalBoard)
+          println("You did not solve the puzzle. Too bad.")
+        }
+      case _ => throw new IllegalArgumentException("Unknown result")
     }
-    else if(attemptsLeft > 1) playSession(newBoard, attemptsLeft - 1, code)
-    else println("You did not solve the puzzle. Too bad.")
   }
 
-  def validateInput(): String = {
+  @tailrec
+  private def validateInput(): String = {
     val input = scala.io.StdIn.readLine("Enter guess: ")
-    if (!validator.validateString(input, colours.getPegs(), shuffler.length)) validateInput()
+    if (!validator.validateString(input, colours.getPegs, shuffler.length)) validateInput()
     else input
   }
 
