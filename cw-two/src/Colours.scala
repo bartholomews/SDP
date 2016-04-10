@@ -1,5 +1,7 @@
 /**
+  * Trait to implement the Colours of the Mastermind game
   *
+  * @author annabel.jump, federico.bartolomei
   */
 trait Colours {
 
@@ -13,6 +15,6 @@ trait Colours {
     *
     * @return the first letter of each String in colourSet, capitalized
     */
-  def getPegs(): Set[Char]
+  def getPegs: Set[Char]
 
 }
