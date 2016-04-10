@@ -12,6 +12,7 @@
     <orderEntry type="library" name="org.scalactic:scalactic_2.11:2.2.6" level="application" />
     <orderEntry type="library" name="net.codingwell:scala-guice_2.11:3.0.3" level="application" />
     <orderEntry type="library" name="scalatest_2.11-2.2.61" level="application" />
+    <orderEntry type="library" name="com.softwaremill.macwire:macros_2.11:2.2.2" level="application" />
   </component>
   <component name="org.twodividedbyzero.idea.findbugs">
     <option name="_basePreferences">
