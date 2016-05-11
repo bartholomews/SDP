@@ -12,6 +12,11 @@ and [fields_in_classes][7])
 + **Vectors**
 (worksheet [vectors.sc][8] in package [vectors][9])
 
+### Exercises - Scala Day One (Part II)
+#### Everything is an object
+
+(in package [part_two][10])
+
 [1]:https://github.com/f-bartholomews/SDP/blob/master/exercises/week_04/src/expressions/expressions.sc
 [2]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_04/src/expressions
 [3]:https://github.com/f-bartholomews/SDP/blob/master/exercises/week_04/src/methods/methods.sc
@@ -21,3 +26,4 @@ and [fields_in_classes][7])
 [7]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_04/src/classes_and_objects/fields_in_classes
 [8]:https://github.com/f-bartholomews/SDP/blob/master/exercises/week_04/src/vectors/vectors.sc
 [9]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_04/src/vectors
+[10]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_04/src/part_two
