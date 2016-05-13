@@ -1,4 +1,5 @@
 ## BBK SDP 2015/16 - Week 5
+
 ###Exercises on Design Patterns II
 
 #### 1.
@@ -610,5 +611,150 @@ The above code will result to the following output:
 
 (**TODO**)
 
+--------
+
+### Exercises - Scala Week Five
+
+
+(*in package [further_scala][3]*)
+
+#### 1.
+    
+Implement a `Counter` class. The constructor should take an `Int`. 
+The methods `inc` and `dec` should increment and decrement the counter 
+respectively returning a new `Counter`. Here’s an example of the usage:
+
+```
+scala> new Counter(10).inc.dec.inc.inc.count
+res02: Int = 12
+```
+
+#### 2.
+
+Augment the `Counter` from the previous exercise to allow the user 
+can optionally pass an `Int` parameter to `inc` and `dec`. 
+If the parameter is omitted it should default to 1.
+
+#### 3.
+
+Here is a simple class called Adder:
+
+     class Adder(amount: Int) {
+       def add(in: Int) = in + amount
+	}
+Extend `Counter` to add a method called `adjust`. This method should accept an
+`Adder` and return a new `Counter` with the result of applying the `Adder` 
+to the `count`.
+
+#### 4.
+
+Implement a companion object for a `Person` class containing an `apply` method that
+accepts a whole name as a single string rather than individual first and last names. 
+
+Tip: you can split a String into an Array of components as follows:
+
+     scala> val parts = "John Doe".split(" ")
+     parts: Array[String] = Array(John, Doe)
+     scala> parts(0)
+     res36: String = John
+
+
+#### 5.
+
+Write two classes, Director and Film, with fields and methods as follows: 
+
++ Director should contain:
+
+	– a field `firstName` of type `String`
+
+	
+	– a field `lastName` of type `String`
+
+	
+	– a field `yearOfBirth` of type `Int`
+
+	
+	– a method called `name` that accepts no parameters and returns the full name
+
+	
++ Film should contain:
+
+	– a field `name` of type `String`
+	
+	– a field `yearOfRelease` of type `Int`
+
+	– a field `imdbRating` of type `Double`
+
+	– a field `director` of type `Director`
+
+	– a method `directorsAge` that returns the age of the director at the time of release
+
+	– a method `isDirectedBy` that accepts a `Director` as a parameter and returns a `Boolean`
+
+You will find appropriate demo data on the repo under the folder scala-exercises; you will need to adjust your constructors so that the code works without modification.
+
+
+Implement a method of `Film` called `copy`. This method should accept the same parameters 
+as the constructor and create a new copy of the film. Give each parameter a default value
+so you can copy a film changing any subset of its values:
+
+  	highPlainsDrifter.copy(name = "L'homme des hautes plaines")
+  	// returns Film("L'homme des hautes plaines", 1973, 7.7, /* etc */)
+  	thomasCrownAffair.copy(yearOfRelease = 1968,
+    director = new Director("Norman", "Jewison", 1926))
+  	// returns Film("The Thomas Crown Affair", 1926, /* etc */)
+  	inception.copy().copy().copy()
+  	// returns a new copy of `inception`
+
+#### 6.
+
+Write companion objects for `Director` and `Film` as follows:
+
++ The `Director` companion object should contain:
+	
+	– an `apply` method that accepts the same parameters as the constructor of the class and returns a new `Director`;
+	
+	– a method older that accepts two `Director`s and returns the oldest of the two.
+
++ The `Film` companion object should contain:	
+
+	– an `apply` method that accepts the same parameters as the constructor of the class and returns a new `Film`;
+
+	– a method `highestRating` that accepts two `Film`s and returns the highest `imdbRating` of the two;
+
+	– a method `oldestDirectorAtTheTime` that accepts two `Film`s and returns the `Director` who was oldest at the respective time of filming.
+
+#### 7.
+
+The similarity in naming of classes and companion objects tends to cause confusion for new Scala developers. When reading a block of code it is important to know which parts refer to a class or type and which parts refer to a singleton object or value.
+This is the inspiration for the new hit quiz, *Type or Value?*, which we will be piloting below. 
+
+In each case identify whether the word Film refers to the type or value:
+
+(a) `val prestige: Film = bestFilmByChristopherNolan() (b) new Film("Last Action Hero", 1993, mcTiernan)`
+
+(c) `Film("Last Action Hero", 1993, mcTiernan)`
+
+(d) `Film.newer(highPlainsDrifter, thomasCrownAffair)`
+
+(e) `Film.type`
+
+#### 8.
+
+We can get rid of a lot of *boilerplate* by converting the `Director` and `Film` classes
+to *case classes*. Do this conversion and work out what code we can remove.
+
+#### 9.
+
+Reimplement `Counter` as a case class, using `copy` where appropriate. Additionally
+initialise `count` to a default value of 0.
+
+#### 10.
+
+What happens when we define a companion object for a case class?
+Take our `Person` class and turn it into a case class. Make sure you still have the companion object with the alternate `apply` method as well.
+
+
 [1]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/strategy_java 
 [2]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/abstractfactory
+[3]: https://github.com/f-bartholomews/SDP/tree/master/exercises/week_05/src/further_scala
