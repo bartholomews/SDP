@@ -66,3 +66,25 @@ object FilmTest extends App {
   thomasCrownAffair.copy(yearOfRelease = 1968, director = new Director("Norman", "Jewison", 1926)).director.yearOfBirth is 1926
   inception.copy().copy().copy().isDirectedBy(nolan)
 }
+
+/* 7.
+
+Type or Value?
+In each case identify whether the word Film refers to the type or value:
+
+(a) val prestige: Film = bestFilmByChristopherNolan()
+TYPE
+
+(b) new Film("Last Action Hero", 1993, mcTiernan)
+TYPE
+
+(c) Film("Last Action Hero", 1993, mcTiernan)
+VALUE
+
+(d) Film.newer(highPlainsDrifter, thomasCrownAffair)
+VALUE
+
+(e) Film.type
+VALUE
+
+ */
