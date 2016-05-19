@@ -157,7 +157,7 @@ it in its field declaration? Provide examples of both approaches to illustrate y
 *In order to save load time and space if not used.*
 
 ```
-// first approach: intialisation in field declaration;
+// first approach: initialisation in field declaration;
 
 public class Singleton() {    
     // private field
