@@ -1,4 +1,5 @@
 ## BBK SDP 2015/16 - Week 7
+
 ### Truly Functional
 
 + **map & reduce**
@@ -13,5 +14,15 @@ and generics - when should we consider using each?
 
 // TODO ex. 11
 
+### Object-Oriented Sets
+
+(in package [objsets][3])
+
+### Functional Sets
+
+(in package [funsets][4])
+
 [1]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_07/src/map_reduce
 [2]:https://github.com/f-bartholomews/SDP/tree/master/exercises/week_07/src/traits_inheritance
+[3]:https://github.com/bartholomews/SDP/tree/master/exercises/week_07/src/objsets
+[4]:https://github.com/bartholomews/SDP/tree/master/exercises/week_07/src/funsets 
